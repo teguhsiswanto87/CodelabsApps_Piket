@@ -1,4 +1,4 @@
-package id.codelabs.codelabsapps_piket.ui
+package id.codelabs.codelabsapps_piket
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
