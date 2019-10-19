@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             app:srcCompat="@drawable/ic_logo_codelabs_small_green" />
 
@@ -48,16 +48,19 @@
             android:textSize="12sp" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edt_login_layoutnim"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp">
+            android:layout_margin="4dp"
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_login_nim"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#F6F6F6" />
+                android:background="#F6F6F6"
+                android:inputType="numberSigned" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -65,23 +68,26 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="4dp"
             android:lineSpacingExtra="9sp"
-            android:text="Password"
+            android:text="Kata Sandi"
             android:textColor="#828282"
             android:textSize="12sp" />
 
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edt_login_layoutpassword"
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dp">
+            android:layout_margin="4dp"
+            app:passwordToggleEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_login_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="16dp"
-                android:background="#F6F6F6" />
+                android:background="#F6F6F6"
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -101,7 +107,7 @@
                 android:fontFamily="@font/source_sans_pro"
                 android:lineSpacingExtra="4sp"
                 android:text="Selanjutnya"
-                android:textSize="16sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
 

@@ -10,10 +10,10 @@
     </style>
 
     <style name="Theme.Piket.SplashScreen" parent="Theme.Piket">
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowDisablePreview">true</item>
-        <item name="android:windowFullscreen">true</item>
         <item name="android:statusBarColor">@color/colorPrimary</item>
     </style>
 
