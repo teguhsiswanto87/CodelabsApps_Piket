@@ -66,9 +66,35 @@
             android:layout_marginTop="120dp"
             android:text="@string/masuk"
             android:textStyle="bold"
+            android:visibility="visible"
             app:layout_constraintEnd_toEndOf="@+id/edt_layout_pass"
             app:layout_constraintStart_toStartOf="@+id/edt_layout_pass"
             app:layout_constraintTop_toBottomOf="@+id/edt_layout_pass" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_loading"
+            style="@style/Widget.Piket.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:background="@drawable/bg_button_round"
+            android:clickable="false"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/edt_layout_pass"
+            app:layout_constraintStart_toStartOf="@+id/edt_layout_pass"
+            app:layout_constraintTop_toBottomOf="@+id/edt_layout_pass" />
+
+        <ImageView
+            android:id="@+id/iv_loading"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/example_nim"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_login_loading"
+            app:layout_constraintEnd_toEndOf="@+id/btn_login_loading"
+            app:layout_constraintStart_toStartOf="@+id/btn_login_loading"
+            app:layout_constraintTop_toTopOf="@+id/btn_login_loading" />
+
 
         <TextView
             android:layout_width="match_parent"
