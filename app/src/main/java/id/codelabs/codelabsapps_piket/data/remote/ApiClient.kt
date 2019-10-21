@@ -7,6 +7,7 @@ class ApiClient{
     companion object{
         private var retrofit : Retrofit? = null
 
+
         fun getClient() : Retrofit{
 
             if (retrofit == null) {

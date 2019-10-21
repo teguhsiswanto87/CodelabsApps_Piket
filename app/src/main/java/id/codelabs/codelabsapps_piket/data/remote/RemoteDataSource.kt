@@ -1,9 +1,12 @@
 package id.codelabs.codelabsapps_piket.data.remote
 
+import android.icu.text.DateTimePatternGenerator.PatternInfo.OK
+import android.util.Log
 import id.codelabs.codelabsapps_piket.data.DataSource
 import id.codelabs.codelabsapps_piket.model.ResponseAddPassword
 import id.codelabs.codelabsapps_piket.model.ResponseCheckPassword
 import id.codelabs.codelabsapps_piket.model.ResponseLogin
+import id.codelabs.codelabsapps_piket.ui.login.LoginActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,7 +14,9 @@ import retrofit2.Response
 class RemoteDataSource{
 
     private var dao : Dao = ApiClient.getClient().create(Dao::class.java)
-    private val OK = 200
+    private val _200 = 200
+    private val _404 = 404
+    private val _401 = 401
 
 
     fun login(nim : String, password : String, callback : DataSource.LoginCallback){
@@ -21,9 +26,10 @@ class RemoteDataSource{
                 callback.onFaillure("gagal")
             }
             override fun onResponse(call: Call<ResponseLogin>, response: Response<ResponseLogin>) {
-                if (response.body()!!.status == OK){
-                    callback.onSuccess(response.body()!!.token)
-                } else callback.onFaillure(response.body()!!.message)
+                when(response.code()){
+                    _200 -> callback.onSuccess(response.body()!!)
+                    _404 -> callback.onFaillure(LoginActivity.WRONGPASSWORD)
+                }
             }
         })
     }
@@ -36,9 +42,12 @@ class RemoteDataSource{
             }
 
             override fun onResponse(call: Call<ResponseCheckPassword>,response: Response<ResponseCheckPassword>) {
-                if (response.body()!!.status == OK){
-                    callback.onSuccess(response.body()!!.message)
-                } else callback.onFailure(response.body()!!.message)
+                Log.i("adasdsadsa",response.code().toString())
+                when (response.code()){
+                    _200 -> callback.onSuccess(LoginActivity.HASPASSWORD)
+                    _401 -> callback.onSuccess(LoginActivity.YETPASSWORD)
+                    _404 -> callback.onSuccess(LoginActivity.NOTFOUNDNIM)
+                }
             }
         }))
     }
@@ -50,9 +59,11 @@ class RemoteDataSource{
                 callback.onFaillure("gagal")
             }
             override fun onResponse(call: Call<ResponseAddPassword>, response: Response<ResponseAddPassword>) {
-                if (response.body()!!.status == OK){
-                    callback.onSuccess(response.body()!!.message)
-                } else callback.onFaillure(response.body()!!.message)
+                when(response.code()){
+                    _200 -> callback.onSuccess(LoginActivity.PASSWORDADDED)
+                    _401 -> callback.onFaillure("gagal")
+                }
+
             }
         })
     }

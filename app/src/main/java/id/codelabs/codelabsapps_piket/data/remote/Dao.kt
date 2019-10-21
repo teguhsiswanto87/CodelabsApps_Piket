@@ -10,16 +10,16 @@ import retrofit2.http.POST
 
 interface Dao{
 
-    @POST("mobile/login")
     @FormUrlEncoded
+    @POST("mobile/login")
     fun login(@Field("nim")nim : String , @Field("password") password : String ) : Call<ResponseLogin>
 
-    @POST("mobile/login/check-password")
     @FormUrlEncoded
+    @POST("mobile/login/check-password")
     fun checkHasPassword(@Field("nim")nim : String  ) : Call<ResponseCheckPassword>
 
-    @POST("mobile/login/add-password")
     @FormUrlEncoded
+    @POST("mobile/login/add-password")
     fun addPassword(@Field("nim")nim : String,@Field("password") password : String  ) : Call<ResponseAddPassword>
 
 

@@ -7,10 +7,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import id.codelabs.codelabsapps_piket.R
 import id.codelabs.codelabsapps_piket.home.HomeActivity
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
 
 
 class LoginActivity : AppCompatActivity(), LoginActivityCallback {
@@ -18,12 +14,21 @@ class LoginActivity : AppCompatActivity(), LoginActivityCallback {
     private lateinit var loginViewModel: LoginViewModel
     private var fragment: Fragment? = null
     private var tag = ""
+    companion object{
+        val HASPASSWORD = "HASPASSWORD"
+        val YETPASSWORD = "YETPASSWORD"
+        val NOTFOUNDNIM = "NOTFOUNDNIM"
+        val SUCCEEDLOGIN = "SUCCESSLOGIN"
+        val WRONGPASSWORD = "WRONGPASSWORD"
+        val PASSWORDADDED = "PASSWORDADDED"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
+        loginViewModel.loginActivity = this
 
         when {
             loginViewModel.state == loginViewModel.NIM_STATE -> {
@@ -42,27 +47,11 @@ class LoginActivity : AppCompatActivity(), LoginActivityCallback {
         if (fragment != null) {
             supportFragmentManager
                 .beginTransaction()
-                .add(R.id.container_login, fragment!!,tag)
+                .replace(R.id.container_login, fragment!!,tag)
+                .addToBackStack(null)
                 .commit()
         }
 
-
-        //        btn_login_selanjutnya.setOnClickListener {
-
-//            if (!isPasswordValid(edt_login_password.text)) {
-//                edt_login_layoutpassword.error = "Password tidak boleh kosong"
-//            } else {
-//                edt_login_layoutpassword.error = null
-//                toast("login berhasil")
-//            }
-//        }
-//
-//        edt_login_password.setOnKeyListener({ _, _, _ ->
-//            if (isPasswordValid(edt_login_password.text!!)) {
-//                edt_login_layoutpassword.error = null
-//            }
-//            false
-//        })
 
     }
 
@@ -82,7 +71,8 @@ class LoginActivity : AppCompatActivity(), LoginActivityCallback {
         if (fragment != null) {
             supportFragmentManager
                 .beginTransaction()
-                .add(R.id.container_login, fragment!!,tag)
+                .replace(R.id.container_login, fragment!!,tag)
+                .addToBackStack(null)
                 .commit()
         }
 
@@ -90,44 +80,44 @@ class LoginActivity : AppCompatActivity(), LoginActivityCallback {
 
     }
 
-    fun movePrev(from: String) {
+//    fun movePrev(from: String) {
+//
+//        when (from) {
+//            loginViewModel.PASS_STATE -> {
+//                tag = PassFragment.tag
+//            }
+//            loginViewModel.CREATE_PASS_STATE -> {
+//                tag = CreatePassFragment.tag
+//            }
+//        }
+//
+//        fragment = supportFragmentManager.findFragmentByTag(tag)
+//
+//        if (fragment != null) {
+//            supportFragmentManager
+//                .beginTransaction()
+//                .remove(fragment!!)
+//                .commit()
+//        }
+//
+//        loginViewModel.state = loginViewModel.NIM_STATE
+//
+//    }
 
-        when (from) {
-            loginViewModel.PASS_STATE -> {
-                tag = PassFragment.tag
-            }
-            loginViewModel.CREATE_PASS_STATE -> {
-                tag = CreatePassFragment.tag
-            }
-        }
-
-        fragment = supportFragmentManager.findFragmentByTag(tag)
-
-        if (fragment != null) {
-            supportFragmentManager
-                .beginTransaction()
-                .remove(fragment!!)
-                .commit()
-        }
-
-        loginViewModel.state = loginViewModel.NIM_STATE
-
-    }
-
-    override fun onBackPressed() {
-
-        when {
-            loginViewModel.state == loginViewModel.NIM_STATE -> {
-                super.onBackPressed()
-            }
-            loginViewModel.state == loginViewModel.PASS_STATE -> {
-                movePrev(loginViewModel.PASS_STATE)
-            }
-            loginViewModel.state == loginViewModel.CREATE_PASS_STATE -> {
-                movePrev(loginViewModel.CREATE_PASS_STATE)
-            }
-        }
-    }
+//    override fun onBackPressed() {
+//
+//        when {
+//            loginViewModel.state == loginViewModel.NIM_STATE -> {
+//                super.onBackPressed()
+//            }
+//            loginViewModel.state == loginViewModel.PASS_STATE -> {
+//                movePrev(loginViewModel.PASS_STATE)
+//            }
+//            loginViewModel.state == loginViewModel.CREATE_PASS_STATE -> {
+//                movePrev(loginViewModel.CREATE_PASS_STATE)
+//            }
+//        }
+//    }
 
     override fun successLogin() {
         val intent = Intent(this@LoginActivity, HomeActivity::class.java)
@@ -135,8 +125,4 @@ class LoginActivity : AppCompatActivity(), LoginActivityCallback {
         finish()
     }
 
-
-//    private fun isPasswordValid(text: Editable?): Boolean {
-//        return text != null && text.length >= 5
-//    }
 }

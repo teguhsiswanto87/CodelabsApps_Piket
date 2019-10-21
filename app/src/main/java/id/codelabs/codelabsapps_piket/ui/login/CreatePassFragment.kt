@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 
 import id.codelabs.codelabsapps_piket.R
 import id.codelabs.codelabsapps_piket.data.DataSource
+import id.codelabs.codelabsapps_piket.model.ResponseLogin
 import kotlinx.android.synthetic.main.fragment_create_pass.*
 
 /**
@@ -49,7 +50,7 @@ class CreatePassFragment : Fragment(), DataSource.LoginCallback {
         loginViewModel.addPassword(this)
     }
 
-    override fun onSuccess(message: String) {
+    override fun onSuccess(response : ResponseLogin) {
         loginActivityCallback.successLogin()
     }
 

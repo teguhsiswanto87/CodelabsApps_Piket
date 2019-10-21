@@ -1,20 +1,21 @@
 package id.codelabs.codelabsapps_piket.data
 
 import id.codelabs.codelabsapps_piket.data.remote.RemoteDataSource
+import id.codelabs.codelabsapps_piket.model.ResponseLogin
 
 class DataSource {
     
     private val remoteDataSource = RemoteDataSource() 
 
     interface LoginCallback {
-        fun onSuccess(token : String)
+        fun onSuccess(response : ResponseLogin)
         fun onFaillure(message : String)
     }
     
     fun login( nim : String, pasword : String, callback : LoginCallback){
         remoteDataSource.login(nim,pasword, object : LoginCallback{
-            override fun onSuccess(token: String) {
-                callback.onSuccess(token)
+            override fun onSuccess(response : ResponseLogin) {
+                callback.onSuccess(response)
             }
 
             override fun onFaillure(message: String) {

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
 
 import id.codelabs.codelabsapps_piket.R
@@ -22,7 +23,7 @@ class NimFragment : Fragment(), DataSource.CheckHasPasswordCallback {
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var loginActivityCallback: LoginActivityCallback
 
-    companion object{
+    companion object {
         val tag = NimFragment::class.java.simpleName
     }
 
@@ -42,20 +43,28 @@ class NimFragment : Fragment(), DataSource.CheckHasPasswordCallback {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         loginViewModel = ViewModelProviders.of(activity!!).get(LoginViewModel::class.java)
+//        edt_nim.se = loginViewModel.nim.
         btn_next.setOnClickListener { clickNext() }
     }
 
     private fun clickNext() {
-        loginViewModel.nim = edt_nim.text.toString()
-        loginViewModel.checkHasPassword(this)
+        if (edt_nim.text.toString().isEmpty()) {
+            edt_nim.error = "ga boleh kosong"
+        } else {
+            loginViewModel.nim = edt_nim.text.toString()
+            loginViewModel.checkHasPassword(this)
+        }
     }
 
     override fun onSuccess(message: String) {
-        loginActivityCallback.moveNext(loginViewModel.PASS_STATE)
+        when (message){
+            LoginActivity.HASPASSWORD -> loginActivityCallback.moveNext(loginViewModel.PASS_STATE)
+            LoginActivity.YETPASSWORD -> loginActivityCallback.moveNext(loginViewModel.CREATE_PASS_STATE)
+            LoginActivity.NOTFOUNDNIM -> Toast.makeText(activity,"Not Found NIM",Toast.LENGTH_SHORT).show()
+        }
     }
 
     override fun onFailure(message: String) {
-        loginActivityCallback.moveNext(loginViewModel.CREATE_PASS_STATE)
     }
 
 

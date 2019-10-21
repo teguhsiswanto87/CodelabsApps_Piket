@@ -11,10 +11,9 @@ import androidx.lifecycle.ViewModelProviders
 
 import id.codelabs.codelabsapps_piket.R
 import id.codelabs.codelabsapps_piket.data.DataSource
-import kotlinx.android.synthetic.main.fragment_create_pass.*
+import id.codelabs.codelabsapps_piket.model.ResponseLogin
 import kotlinx.android.synthetic.main.fragment_create_pass.btn_login
 import kotlinx.android.synthetic.main.fragment_create_pass.edt_pass
-import kotlinx.android.synthetic.main.fragment_pass.*
 
 /**
  * A simple [Fragment] subclass.
@@ -48,12 +47,15 @@ class PassFragment : Fragment(), DataSource.LoginCallback  {
     }
 
     private fun clickLogin(){
-        loginViewModel.password = edt_pass.text.toString()
-        loginViewModel.login(this)
-
+        if(edt_pass.text.toString().isEmpty()){
+            edt_pass.error = "ga boleh kosong"
+        }else{
+            loginViewModel.password = edt_pass.text.toString()
+            loginViewModel.login(this)
+        }
     }
 
-    override fun onSuccess(token: String) {
+    override fun onSuccess(response : ResponseLogin) {
         loginActivityCallback.successLogin()
     }
 

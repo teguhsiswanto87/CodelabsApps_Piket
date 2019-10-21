@@ -53,8 +53,7 @@
             android:id="@+id/edt_pass"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F6F6F6"
-            android:inputType="numberSigned" />
+            android:background="#F6F6F6" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
