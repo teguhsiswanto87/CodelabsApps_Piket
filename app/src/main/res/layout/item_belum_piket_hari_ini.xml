@@ -8,11 +8,11 @@
     android:layout_marginRight="16dp"
     android:layout_marginBottom="8dp"
     android:alpha="0.7"
-    android:background="@drawable/bg_item_piket">
+    android:background="@drawable/bg_belum_item_piket">
 
     <TextView
         android:id="@+id/tv_nama"
-        style="@style/Theme.Piket.NameItem"
+        style="@style/Theme.Piket.NameItem.BelumPiket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -23,7 +23,7 @@
 
     <TextView
         android:id="@+id/tv_duty"
-        style="@style/Theme.Piket.DutyItem"
+        style="@style/Theme.Piket.DutyItem.BelumPiket"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
@@ -32,16 +32,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_nama"
         app:layout_constraintTop_toBottomOf="@+id/tv_nama" />
-
-    <com.google.android.material.button.MaterialButton
-        style="@style/Widget.Piket.Button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:text="@string/selesai"
-        android:textSize="13sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
