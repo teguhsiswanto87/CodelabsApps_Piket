@@ -1,7 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Piket" parent="Theme.MaterialComponents.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -10,6 +9,7 @@
         <item name="android:fontFamily">@font/source_sans_pro</item>
     </style>
 
+    <!-- Activity Theme. -->
     <style name="Theme.Piket.SplashScreen" parent="Theme.Piket">
         <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
         <item name="windowActionBar">false</item>
@@ -32,6 +32,7 @@
         <item name="android:statusBarColor">@color/loginPageBackgroundColor</item>
     </style>
 
+    <!-- Text. -->
     <style name="Theme.Piket.Welcome" parent="Theme.Piket">
         <item name="android:fontFamily">@font/source_sans_pro</item>
         <item name="android:textSize">24sp</item>
@@ -61,10 +62,21 @@
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="Theme.Piket.DutyItem" parent="Theme.Piket">
-
+    <style name="Theme.Piket.NameItem.BelumPiket" parent="Theme.Piket.NameItem">
+        <item name="android:textColor">#FFFFFF</item>
     </style>
 
+    <style name="Theme.Piket.DutyItem" parent="Theme.Piket.NameItem">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="Theme.Piket.DutyItem.BelumPiket" parent="Theme.Piket.NameItem.BelumPiket">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <!--  Text Input  -->
     <style name="TextInputLayout" parent="@style/Widget.MaterialComponents.TextInputLayout.FilledBox">
         <item name="android:paddingBottom">8dp</item>
         <item name="android:textAlignment">center</item>
@@ -78,6 +90,7 @@
         <item name="android:fontFamily">@font/source_sans_pro</item>
     </style>
 
+    <!--  Button  -->
     <style name="Widget.Piket.Button" parent="Widget.AppCompat.Button">
         <item name="android:fontFamily">@font/source_sans_pro</item>
         <item name="android:textColor">@android:color/white</item>
@@ -96,6 +109,8 @@
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
 
+
+    <!--  Toolbar  -->
     <style name="Widget.Piket.Toolbar" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:background">@android:color/white</item>
         <item name="android:theme">?theme</item>
