@@ -57,6 +57,8 @@
 
     <style name="Theme.Piket.NameItem" parent="Theme.Piket">
         <item name="android:textColor">#AD505050</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="Theme.Piket.DutyItem" parent="Theme.Piket">
