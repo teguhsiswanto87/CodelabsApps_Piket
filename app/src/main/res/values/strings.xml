@@ -8,4 +8,7 @@
     <string name="password">Password</string>
     <string name="login">login</string>
     <string name="selanjutnya">selanjutnya</string>
+    <string name="piket_hari_ini">Piket Hari Ini</string>
+    <string name="udah_piket">Udah Piket</string>
+    <string name="belum_piket">Belum Piket</string>
 </resources>

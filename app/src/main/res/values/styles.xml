@@ -28,7 +28,19 @@
 
     </style>
 
-    <style name="Theme.Piket.Field" parent="Theme.Piket">
+    <style name="Theme.Piket.LoginFieldTitle" parent="Theme.Piket">
+
+    </style>
+
+    <style name="Theme.Piket.ListTitle" parent="Theme.Piket">
+
+    </style>
+
+    <style name="Theme.Piket.NameItem" parent="Theme.Piket">
+
+    </style>
+
+    <style name="Theme.Piket.DutyItem" parent="Theme.Piket">
 
     </style>
 </resources>

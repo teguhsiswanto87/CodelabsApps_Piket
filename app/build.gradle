@@ -45,5 +45,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
     annotationProcessor "android.arch.lifecycle:compiler:1.1.1"
 
+    implementation 'com.github.gastricspark:scrolldatepicker:0.0.1'
+
+
 
 }
