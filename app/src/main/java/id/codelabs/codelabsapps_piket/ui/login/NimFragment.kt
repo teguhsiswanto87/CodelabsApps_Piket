@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 
@@ -46,28 +47,38 @@ class NimFragment : Fragment(), DataSource.CheckHasPasswordCallback {
         loginViewModel = ViewModelProviders.of(activity!!).get(LoginViewModel::class.java)
 //        edt_nim.se = loginViewModel.nim.
         btn_next.setOnClickListener { clickNext() }
-//        Glide.with(requireContext())
-//            .load()
+        edt_nim.addTextChangedListener {
+            if (edt_nim.text.toString().isEmpty()) {
+                edt_layout_nim.error = "ga boleh kosong"
+            }else {
+                edt_layout_nim.error = null
+            }
+        }
+        Glide.with(requireContext())
+            .load(R.drawable.loading_white)
+            .into(iv_loading)
     }
 
     private fun clickNext() {
         if (edt_nim.text.toString().isEmpty()) {
-            edt_nim.error = "ga boleh kosong"
+            edt_layout_nim.error = "ga boleh kosong"
         } else {
             loginViewModel.nim = edt_nim.text.toString()
             loginViewModel.checkHasPassword(this)
-            btn_next_loading.visibility =View.VISIBLE
+            btn_login_loading.visibility =View.VISIBLE
             iv_loading.visibility = View.VISIBLE
+            iv_loading.bringToFront()
+            iv_loading.invalidate()
         }
     }
 
     override fun onSuccess(message: String) {
-        btn_next_loading.visibility =View.INVISIBLE
+        btn_login_loading.visibility =View.INVISIBLE
         iv_loading.visibility = View.INVISIBLE
         when (message){
             LoginActivity.HASPASSWORD -> loginActivityCallback.moveNext(loginViewModel.PASS_STATE)
             LoginActivity.YETPASSWORD -> loginActivityCallback.moveNext(loginViewModel.CREATE_PASS_STATE)
-            LoginActivity.NOTFOUNDNIM -> Toast.makeText(activity,"Not Found NIM",Toast.LENGTH_SHORT).show()
+            LoginActivity.NOTFOUNDNIM -> edt_layout_nim.error = "nim not found"
         }
     }
 

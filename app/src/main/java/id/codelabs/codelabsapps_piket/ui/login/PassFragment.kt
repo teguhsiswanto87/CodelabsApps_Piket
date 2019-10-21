@@ -8,12 +8,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 
 import id.codelabs.codelabsapps_piket.R
+import id.codelabs.codelabsapps_piket.Utils
 import id.codelabs.codelabsapps_piket.data.DataSource
 import id.codelabs.codelabsapps_piket.model.ResponseLogin
-import kotlinx.android.synthetic.main.fragment_create_pass.btn_login
-import kotlinx.android.synthetic.main.fragment_create_pass.edt_pass
+import kotlinx.android.synthetic.main.fragment_pass.*
 
 /**
  * A simple [Fragment] subclass.
@@ -44,22 +45,32 @@ class PassFragment : Fragment(), DataSource.LoginCallback  {
         super.onActivityCreated(savedInstanceState)
         loginViewModel = ViewModelProviders.of(activity!!).get(LoginViewModel::class.java)
         btn_login.setOnClickListener { clickLogin() }
+        Glide.with(requireContext())
+            .load(R.drawable.loading_white)
+            .into(iv_loading)
     }
 
     private fun clickLogin(){
         if(edt_pass.text.toString().isEmpty()){
-            edt_pass.error = "ga boleh kosong"
+            edt_layout_pass.error = "ga boleh kosong"
         }else{
             loginViewModel.password = edt_pass.text.toString()
             loginViewModel.login(this)
+            btn_login_loading.visibility =View.VISIBLE
+            iv_loading.visibility = View.VISIBLE
         }
     }
 
     override fun onSuccess(response : ResponseLogin) {
+        btn_login_loading.visibility =View.INVISIBLE
+        iv_loading.visibility = View.INVISIBLE
         loginActivityCallback.successLogin()
     }
 
     override fun onFaillure(message: String) {
+        btn_login_loading.visibility =View.INVISIBLE
+        iv_loading.visibility = View.INVISIBLE
+        edt_layout_pass.error="password salah"
     }
 
 }
