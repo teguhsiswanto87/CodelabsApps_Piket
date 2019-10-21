@@ -1,70 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.login.NimFragment">
 
-    <ImageView
-        android:id="@+id/iv_cl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:src="@drawable/codelabs_small_green"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/tv_welcome"
-        style="@style/Theme.Piket.Welcome"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="160dp"
-        android:text="@string/selamat_datang_kembali"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/iv_cl" />
+        <ImageView
+            android:id="@+id/iv_cl"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:contentDescription="@string/codelabs_small_green"
+            android:src="@drawable/codelabs_medium_green"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_nim"
-        style="@style/Theme.Piket.LoginFieldTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/nim"
-        app:layout_constraintStart_toStartOf="@+id/tv_welcome"
-        app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+        <TextView
+            android:id="@+id/tv_welcome"
+            style="@style/Theme.Piket.Welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="128dp"
+            android:text="@string/selamat_datang"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_cl" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edt_layout_nim"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        app:endIconMode="clear_text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tv_nim"
-        app:layout_constraintTop_toBottomOf="@+id/tv_nim">
+        <!--    <TextView-->
+        <!--        android:id="@+id/tv_nim"-->
+        <!--        style="@style/Theme.Piket.LoginFieldTitle"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:layout_marginTop="32dp"-->
+        <!--        android:text="@string/nim"-->
+        <!--         />-->
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edt_nim"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edt_layout_nim"
+            style="@style/TextInputLayout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="64dp"
+            android:layout_marginEnd="32dp"
+            android:hint="@string/nim"
+            app:boxCornerRadiusTopEnd="3dp"
+            app:boxCornerRadiusTopStart="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_welcome">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_nim"
+                style="@style/TextInputEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberSigned" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_next"
+            style="@style/Widget.Piket.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:text="@string/selanjutnya"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/edt_layout_nim"
+            app:layout_constraintStart_toStartOf="@+id/edt_layout_nim"
+            app:layout_constraintTop_toBottomOf="@+id/edt_layout_nim" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_next_loading"
+            style="@style/Widget.Piket.Button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="120dp"
+            android:background="@drawable/bg_button_round"
+            android:clickable="false"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="@+id/edt_layout_nim"
+            app:layout_constraintStart_toStartOf="@+id/edt_layout_nim"
+            app:layout_constraintTop_toBottomOf="@+id/edt_layout_nim" />
+
+        <ImageView
+            android:id="@+id/iv_loading"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/example_nim"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_next_loading"
+            app:layout_constraintEnd_toEndOf="@+id/btn_next_loading"
+            app:layout_constraintStart_toStartOf="@+id/btn_next_loading"
+            app:layout_constraintTop_toTopOf="@+id/btn_next_loading" />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F6F6F6"
-            android:inputType="numberSigned" />
+            android:layout_marginTop="32dp"
+            android:text="@string/v1_0"
+            android:textAlignment="center"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btn_next" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/btn_next"
-        android:text="@string/selanjutnya"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
-        app:layout_constraintEnd_toEndOf="@+id/edt_layout_nim"
-        app:layout_constraintStart_toStartOf="@+id/tv_welcome"
-        app:layout_constraintTop_toBottomOf="@+id/edt_layout_nim" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
