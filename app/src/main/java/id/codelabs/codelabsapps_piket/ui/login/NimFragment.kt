@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProviders
+import com.bumptech.glide.Glide
 
 import id.codelabs.codelabsapps_piket.R
 import id.codelabs.codelabsapps_piket.data.DataSource
@@ -45,6 +46,8 @@ class NimFragment : Fragment(), DataSource.CheckHasPasswordCallback {
         loginViewModel = ViewModelProviders.of(activity!!).get(LoginViewModel::class.java)
 //        edt_nim.se = loginViewModel.nim.
         btn_next.setOnClickListener { clickNext() }
+//        Glide.with(requireContext())
+//            .load()
     }
 
     private fun clickNext() {
@@ -53,10 +56,14 @@ class NimFragment : Fragment(), DataSource.CheckHasPasswordCallback {
         } else {
             loginViewModel.nim = edt_nim.text.toString()
             loginViewModel.checkHasPassword(this)
+            btn_next_loading.visibility =View.VISIBLE
+            iv_loading.visibility = View.VISIBLE
         }
     }
 
     override fun onSuccess(message: String) {
+        btn_next_loading.visibility =View.INVISIBLE
+        iv_loading.visibility = View.INVISIBLE
         when (message){
             LoginActivity.HASPASSWORD -> loginActivityCallback.moveNext(loginViewModel.PASS_STATE)
             LoginActivity.YETPASSWORD -> loginActivityCallback.moveNext(loginViewModel.CREATE_PASS_STATE)
