@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -19,11 +18,12 @@
 
     <TextView
         android:id="@+id/tv_entered_nim"
+        style="@style/Theme.Piket.Welcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="120dp"
-        android:text="10118371"
+        android:text="@string/example_nim"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_cl" />
 
@@ -39,21 +39,21 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edt_layout_pass"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        style="@style/TextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        app:endIconMode="clear_text"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_pass"
         app:layout_constraintTop_toBottomOf="@+id/tv_pass">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_pass"
+            style="@style/TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F6F6F6"
-            android:inputType="numberSigned" />
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -69,30 +69,31 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edt_layout_repass"
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+        style="@style/TextInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        app:endIconMode="clear_text"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/tv_repass"
         app:layout_constraintTop_toBottomOf="@+id/tv_repass">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edt_repass"
+            style="@style/TextInputEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F6F6F6"
-            android:inputType="numberSigned" />
+            android:inputType="textPassword" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_login"
+        style="@style/Widget.Piket.Button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="120dp"
-        android:text="@string/login"
+        android:text="@string/buat_password"
         app:layout_constraintEnd_toEndOf="@+id/edt_layout_repass"
         app:layout_constraintStart_toStartOf="@+id/edt_layout_repass"
         app:layout_constraintTop_toBottomOf="@+id/edt_layout_repass" />

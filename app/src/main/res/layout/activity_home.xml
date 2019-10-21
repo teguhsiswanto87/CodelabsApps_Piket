@@ -6,13 +6,21 @@
     android:layout_height="match_parent"
     tools:context=".home.HomeActivity">
 
-    <com.harrywhewell.scrolldatepicker.DayScrollDatePicker
-        android:id="@+id/day_date_picker"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/day_date_picker_layout"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
+        android:elevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.harrywhewell.scrolldatepicker.DayScrollDatePicker
+            android:id="@+id/day_date_picker"
+            style="@style/Widget.Piket.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="120dp" />
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
@@ -20,45 +28,54 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day_date_picker" >
+        app:layout_constraintTop_toBottomOf="@+id/day_date_picker_layout">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="16dp">
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:orientation="vertical">
+
             <TextView
-                style="@style/Theme.Piket.LoginFieldTitle"
-                android:text="@string/piket_hari_ini"
+                style="@style/Theme.Piket.ListTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/piket_hari_ini" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:layout_marginBottom="24dp"/>
+                android:layout_marginBottom="24dp"
+                android:nestedScrollingEnabled="false" />
+
             <TextView
-                style="@style/Theme.Piket.LoginFieldTitle"
-                android:text="@string/udah_piket"
+                style="@style/Theme.Piket.ListTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp"
+                android:text="@string/udah_piket" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:layout_marginBottom="24dp"/>
+                android:layout_marginBottom="24dp"
+                android:nestedScrollingEnabled="false" />
+
             <TextView
-                style="@style/Theme.Piket.LoginFieldTitle"
-                android:text="@string/belum_piket"
+                style="@style/Theme.Piket.ListTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginBottom="16dp"
+                android:text="@string/belum_piket" />
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                android:layout_marginBottom="24dp"/>
+                android:layout_marginBottom="24dp"
+                android:nestedScrollingEnabled="false" />
         </LinearLayout>
 
 
