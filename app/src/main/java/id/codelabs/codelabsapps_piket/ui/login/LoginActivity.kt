@@ -80,44 +80,6 @@ class LoginActivity : AppCompatActivity(), LoginActivityCallback {
 
     }
 
-//    fun movePrev(from: String) {
-//
-//        when (from) {
-//            loginViewModel.PASS_STATE -> {
-//                tag = PassFragment.tag
-//            }
-//            loginViewModel.CREATE_PASS_STATE -> {
-//                tag = CreatePassFragment.tag
-//            }
-//        }
-//
-//        fragment = supportFragmentManager.findFragmentByTag(tag)
-//
-//        if (fragment != null) {
-//            supportFragmentManager
-//                .beginTransaction()
-//                .remove(fragment!!)
-//                .commit()
-//        }
-//
-//        loginViewModel.state = loginViewModel.NIM_STATE
-//
-//    }
-
-//    override fun onBackPressed() {
-//
-//        when {
-//            loginViewModel.state == loginViewModel.NIM_STATE -> {
-//                super.onBackPressed()
-//            }
-//            loginViewModel.state == loginViewModel.PASS_STATE -> {
-//                movePrev(loginViewModel.PASS_STATE)
-//            }
-//            loginViewModel.state == loginViewModel.CREATE_PASS_STATE -> {
-//                movePrev(loginViewModel.CREATE_PASS_STATE)
-//            }
-//        }
-//    }
 
     override fun successLogin() {
         val intent = Intent(this@LoginActivity, HomeActivity::class.java)

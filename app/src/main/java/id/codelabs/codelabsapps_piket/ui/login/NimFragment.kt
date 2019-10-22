@@ -7,14 +7,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 
 import id.codelabs.codelabsapps_piket.R
+import id.codelabs.codelabsapps_piket.Utils
 import id.codelabs.codelabsapps_piket.data.DataSource
+import kotlinx.android.synthetic.main.fragment_create_pass.*
 import kotlinx.android.synthetic.main.fragment_nim.*
+import kotlinx.android.synthetic.main.fragment_nim.iv_loading
 
 /**
  * A simple [Fragment] subclass.
@@ -47,28 +49,26 @@ class NimFragment : Fragment(), DataSource.CheckHasPasswordCallback {
         loginViewModel = ViewModelProviders.of(activity!!).get(LoginViewModel::class.java)
 //        edt_nim.se = loginViewModel.nim.
         btn_next.setOnClickListener { clickNext() }
-        edt_nim.addTextChangedListener {
-            if (edt_nim.text.toString().isEmpty()) {
-                edt_layout_nim.error = "ga boleh kosong"
-            }else {
-                edt_layout_nim.error = null
-            }
-        }
+        edt_nim.addTextChangedListener {textChangedListener()}
         Glide.with(requireContext())
-            .load(R.drawable.loading_white)
+            .load(R.drawable.loading)
             .into(iv_loading)
     }
 
     private fun clickNext() {
-        if (edt_nim.text.toString().isEmpty()) {
-            edt_layout_nim.error = "ga boleh kosong"
-        } else {
+        if (edt_layout_nim.error == null){
             loginViewModel.nim = edt_nim.text.toString()
             loginViewModel.checkHasPassword(this)
             btn_login_loading.visibility =View.VISIBLE
             iv_loading.visibility = View.VISIBLE
-            iv_loading.bringToFront()
-            iv_loading.invalidate()
+        }
+    }
+
+    private fun textChangedListener(){
+        if (edt_nim.text.toString().isEmpty()) {
+            edt_layout_nim.error = "ga boleh kosong"
+        }else {
+            edt_layout_nim.error = null
         }
     }
 
@@ -83,6 +83,9 @@ class NimFragment : Fragment(), DataSource.CheckHasPasswordCallback {
     }
 
     override fun onFailure(message: String) {
+        btn_create_password_loading.visibility = View.VISIBLE
+        iv_loading.visibility = View.VISIBLE
+        Utils.showToast(requireContext(),message,500)
     }
 
 

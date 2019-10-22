@@ -90,6 +90,7 @@
             android:layout_height="24dp"
             android:contentDescription="@string/example_nim"
             android:visibility="invisible"
+            android:elevation="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/btn_login_loading"
             app:layout_constraintEnd_toEndOf="@+id/btn_login_loading"
             app:layout_constraintStart_toStartOf="@+id/btn_login_loading"

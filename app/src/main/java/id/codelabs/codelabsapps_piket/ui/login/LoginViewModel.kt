@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import id.codelabs.codelabsapps_piket.Utils
 import id.codelabs.codelabsapps_piket.data.DataSource
 import id.codelabs.codelabsapps_piket.model.ResponseLogin
-import okhttp3.internal.Util
 
 class LoginViewModel : ViewModel(){
 
@@ -39,28 +38,23 @@ class LoginViewModel : ViewModel(){
     fun login(callback : DataSource.LoginCallback){
         DataSource.login(nim,password,object : DataSource.LoginCallback {
             override fun onSuccess(response : ResponseLogin) {
-                Utils.makeSharedPreferences(loginActivity as Activity)
-                Log.d("dasdasdasda","dasdsad")
-                Utils.putSharedPreferences("hoho","fg")
-                Log.d("cdasadasd",Utils.getSharedPreferences("hoho")!!)
-                Log.d("dsadsad",nim)
-                Log.d("dsadsad",password)
-                Log.d("dsadsad",response.token)
+                token = response.token
 
-                Utils.putSharedPreferences(Utils.SAVED_PASSWORD,"gf")
-                Log.d(
-                    "dsadasf",
-                    Utils.getSharedPreferences(Utils.getSharedPreferences(Utils.SAVED_PASSWORD)!!)!!)
+                Log.d("devnkjsakdn",nim)
+                Log.d("devnkjsakdn",password)
+                Log.d("devnkjsakdn",token)
 
-                Utils.putSharedPreferences(Utils.SAVED_PASSWORD,"gd")
-                Log.d(
-                    "dsadasf",
-                    Utils.getSharedPreferences(Utils.getSharedPreferences(Utils.SAVED_PASSWORD)!!)!!)
+                Utils.makeSharedPreferences(loginActivity)
 
-                Utils.putSharedPreferences(Utils.SAVED_TOKEN,response.token)
-                Log.d(
-                    "dsadasf",
-                    Utils.getSharedPreferences(Utils.getSharedPreferences(Utils.SAVED_TOKEN)!!)!!)
+                Utils.putSharedPreferences(Utils.SAVED_NIM,nim)
+                Utils.putSharedPreferences(Utils.SAVED_PASSWORD,password)
+                Utils.putSharedPreferences(Utils.SAVED_TOKEN,token)
+
+                Log.d("prefdasdsd",Utils.getSharedPreferences(Utils.SAVED_NIM)!!)
+                Log.d("prefdasdsd",Utils.getSharedPreferences(Utils.SAVED_PASSWORD)!!)
+                Log.d("prefdasdsd",Utils.getSharedPreferences(Utils.SAVED_TOKEN)!!)
+
+
                 callback.onSuccess(response)
             }
 

@@ -12,11 +12,5 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         Utils.makeSharedPreferences(this)
-        Log.d(
-            "asdasdsads",
-            Utils.getSharedPreferences(Utils.getSharedPreferences(Utils.SAVED_PASSWORD)!!)!!)
-        Log.d(
-            "asdasdsads",
-            Utils.getSharedPreferences(Utils.getSharedPreferences(Utils.SAVED_NIM)!!)!!)
     }
 }

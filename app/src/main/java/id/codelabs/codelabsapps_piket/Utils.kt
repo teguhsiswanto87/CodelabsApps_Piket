@@ -14,6 +14,7 @@ class Utils {
         const val SAVED_PASSWORD = "PASSWORD"
         const val SAVED_NIM = "SAVED_NIM"
         const val SAVED_TOKEN = "SAVED_TOKEN"
+        const val _404 = "404 Not Found SharedPreferences "
         private lateinit var prefs: SharedPreferences
 
         fun makeSharedPreferences(activity: Activity) {
@@ -28,7 +29,7 @@ class Utils {
         }
 
         fun getSharedPreferences(key: String): String? {
-            return prefs.getString(key, "not found")
+            return prefs.getString(key, _404)
         }
 
         fun showToast(context: Context, text: String, durationInMillis: Int) {

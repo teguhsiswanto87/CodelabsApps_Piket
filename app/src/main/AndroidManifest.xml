@@ -16,12 +16,14 @@
             android:theme="@style/Theme.Piket.Home"></activity>
         <activity
             android:name=".ui.login.LoginActivity"
+            android:theme="@style/Theme.Piket.LoginScreen"
             android:excludeFromRecents="true"
-            android:noHistory="true"
-            android:theme="@style/Theme.Piket.LoginScreen" />
+            android:noHistory="true"/>
         <activity
             android:name=".ui.splash.SplashActivity"
-            android:theme="@style/Theme.Piket.SplashScreen">
+            android:theme="@style/Theme.Piket.SplashScreen"
+            android:excludeFromRecents="true"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -7,10 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 
 import id.codelabs.codelabsapps_piket.R
+import id.codelabs.codelabsapps_piket.Utils
 import id.codelabs.codelabsapps_piket.data.DataSource
 import id.codelabs.codelabsapps_piket.model.ResponseLogin
 import kotlinx.android.synthetic.main.fragment_create_pass.*
@@ -26,7 +28,7 @@ class CreatePassFragment : Fragment(), DataSource.LoginCallback {
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var loginActivityCallback: LoginActivityCallback
 
-    companion object{
+    companion object {
         val tag = CreatePassFragment::class.java.simpleName
     }
 
@@ -46,34 +48,49 @@ class CreatePassFragment : Fragment(), DataSource.LoginCallback {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         loginViewModel = ViewModelProviders.of(activity!!).get(LoginViewModel::class.java)
+        tv_entered_nim.text = loginViewModel.nim
         btn_create_password.setOnClickListener { clickLogin() }
+        edt_pass.addTextChangedListener { passTextChangedListener() }
+        edt_repass.addTextChangedListener { repassTextChangedListener() }
         Glide.with(requireContext())
-            .load(R.drawable.loading_white)
+            .load(R.drawable.loading)
             .into(iv_loading)
     }
 
-    private fun clickLogin(){
-        if (edt_pass.text.toString() != edt_repass.text.toString()){
-            edt_layout_repass.error = "harus sama"
-        }else if(edt_pass.text.toString().isEmpty()){
-            edt_layout_pass.error = "ga boleh kosong"
-            edt_layout_repass.error = "ga boleh kosong"
-        }else {
-            loginViewModel.password = edt_pass.text.toString()
-            loginViewModel.addPassword(this)
-            btn_create_password_loading.visibility = View.VISIBLE
-            iv_loading.visibility = View.VISIBLE
+    private fun clickLogin() {
+        if (edt_layout_pass.error == null && edt_layout_repass.error == null) {
+            if (edt_pass.text.toString() == edt_repass.text.toString()) {
+                loginViewModel.password = edt_pass.text.toString()
+                loginViewModel.addPassword(this)
+                btn_create_password_loading.visibility = View.VISIBLE
+                iv_loading.visibility = View.VISIBLE
+            } else edt_layout_repass.error = "harus sama"
         }
 
     }
 
-    override fun onSuccess(response : ResponseLogin) {
+    private fun passTextChangedListener() {
+        if (edt_pass.text.toString().isEmpty()) {
+            edt_layout_pass.error = "ga boleh kosong"
+        } else edt_layout_pass.error = null
+    }
+
+    private fun repassTextChangedListener() {
+        if (edt_repass.text.toString().isEmpty()) {
+            edt_layout_repass.error = "ga boleh kosong"
+        } else edt_layout_repass.error = null
+    }
+
+    override fun onSuccess(response: ResponseLogin) {
         btn_create_password_loading.visibility = View.VISIBLE
         iv_loading.visibility = View.VISIBLE
         loginActivityCallback.successLogin()
     }
 
     override fun onFaillure(message: String) {
+        btn_create_password_loading.visibility = View.VISIBLE
+        iv_loading.visibility = View.VISIBLE
+        Utils.showToast(requireContext(),message,500)
     }
 
 }

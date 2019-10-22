@@ -7,11 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 
 import id.codelabs.codelabsapps_piket.R
-import id.codelabs.codelabsapps_piket.Utils
 import id.codelabs.codelabsapps_piket.data.DataSource
 import id.codelabs.codelabsapps_piket.model.ResponseLogin
 import kotlinx.android.synthetic.main.fragment_pass.*
@@ -44,16 +44,16 @@ class PassFragment : Fragment(), DataSource.LoginCallback  {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         loginViewModel = ViewModelProviders.of(activity!!).get(LoginViewModel::class.java)
+        tv_entered_nim.text = loginViewModel.nim
         btn_login.setOnClickListener { clickLogin() }
+        edt_pass.addTextChangedListener { textChangeListener() }
         Glide.with(requireContext())
-            .load(R.drawable.loading_white)
+            .load(R.drawable.loading)
             .into(iv_loading)
     }
 
     private fun clickLogin(){
-        if(edt_pass.text.toString().isEmpty()){
-            edt_layout_pass.error = "ga boleh kosong"
-        }else{
+        if(edt_layout_pass.error == null){
             loginViewModel.password = edt_pass.text.toString()
             loginViewModel.login(this)
             btn_login_loading.visibility =View.VISIBLE
@@ -61,8 +61,14 @@ class PassFragment : Fragment(), DataSource.LoginCallback  {
         }
     }
 
+    private fun textChangeListener(){
+        if (edt_pass.text.toString().isEmpty()){
+            edt_layout_pass.error = "gaboleh kosong"
+        }else edt_layout_pass.error = null
+    }
+
     override fun onSuccess(response : ResponseLogin) {
-        btn_login_loading.visibility =View.INVISIBLE
+        btn_login_loading.visibility = View.INVISIBLE
         iv_loading.visibility = View.INVISIBLE
         loginActivityCallback.successLogin()
     }

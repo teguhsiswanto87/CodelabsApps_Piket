@@ -1,6 +1,5 @@
 package id.codelabs.codelabsapps_piket.data.remote
 
-import android.icu.text.DateTimePatternGenerator.PatternInfo.OK
 import android.util.Log
 import id.codelabs.codelabsapps_piket.data.DataSource
 import id.codelabs.codelabsapps_piket.model.ResponseAddPassword
@@ -20,25 +19,26 @@ class RemoteDataSource{
 
 
     fun login(nim : String, password : String, callback : DataSource.LoginCallback){
-        var call : Call<ResponseLogin> =  dao.login(nim,password)
+        val call : Call<ResponseLogin> =  dao.login(nim,password)
         call.enqueue( object : Callback<ResponseLogin>{
             override fun onFailure(call: Call<ResponseLogin>, t: Throwable) {
-                callback.onFaillure("gagal")
+                callback.onFaillure(t.toString())
             }
             override fun onResponse(call: Call<ResponseLogin>, response: Response<ResponseLogin>) {
+                Log.i("dasdasd",response.code().toString())
                 when(response.code()){
                     _200 -> callback.onSuccess(response.body()!!)
-                    _404 -> callback.onFaillure(LoginActivity.WRONGPASSWORD)
+                    _401 -> callback.onFaillure(LoginActivity.WRONGPASSWORD)
                 }
             }
         })
     }
 
     fun checkHasPassword(nim : String,callback : DataSource.CheckHasPasswordCallback){
-        var call : Call<ResponseCheckPassword> = dao.checkHasPassword(nim)
+        val call : Call<ResponseCheckPassword> = dao.checkHasPassword(nim)
         call.enqueue((object : Callback<ResponseCheckPassword>{
             override fun onFailure(call: Call<ResponseCheckPassword>, t: Throwable) {
-                callback.onFailure("gagal")
+                callback.onFailure(t.toString())
             }
 
             override fun onResponse(call: Call<ResponseCheckPassword>,response: Response<ResponseCheckPassword>) {
@@ -53,10 +53,10 @@ class RemoteDataSource{
     }
 
     fun addPassword(nim : String, password : String, callback : DataSource.AddPasswordCallback){
-        var call : Call<ResponseAddPassword> =  dao.addPassword(nim,password)
+        val call : Call<ResponseAddPassword> =  dao.addPassword(nim,password)
         call.enqueue( object : Callback<ResponseAddPassword>{
             override fun onFailure(call: Call<ResponseAddPassword>, t: Throwable) {
-                callback.onFaillure("gagal")
+                callback.onFaillure(t.toString())
             }
             override fun onResponse(call: Call<ResponseAddPassword>, response: Response<ResponseAddPassword>) {
                 when(response.code()){

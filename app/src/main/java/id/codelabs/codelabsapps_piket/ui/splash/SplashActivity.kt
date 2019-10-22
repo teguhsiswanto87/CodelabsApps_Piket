@@ -4,7 +4,10 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import id.codelabs.codelabsapps_piket.R
+import id.codelabs.codelabsapps_piket.Utils
+import id.codelabs.codelabsapps_piket.home.HomeActivity
 import id.codelabs.codelabsapps_piket.ui.login.LoginActivity
 
 class SplashActivity : AppCompatActivity() {
@@ -23,7 +26,13 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun goToMainActivity() {
-        val intent = Intent(applicationContext, LoginActivity::class.java)
+        Utils.makeSharedPreferences(this)
+        val intent: Intent = if (Utils.getSharedPreferences(Utils.SAVED_NIM) == Utils._404) {
+            Intent(applicationContext, LoginActivity::class.java)
+        } else {
+            Log.d("welcome user : ",Utils.getSharedPreferences(Utils.SAVED_NIM))
+            Intent(applicationContext, HomeActivity::class.java)
+        }
         startActivity(intent)
         finish()
     }
