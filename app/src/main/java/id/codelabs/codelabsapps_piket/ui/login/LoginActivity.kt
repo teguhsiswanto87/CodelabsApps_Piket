@@ -3,6 +3,7 @@ package id.codelabs.codelabsapps_piket.ui.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import id.codelabs.codelabsapps_piket.R
@@ -14,6 +15,7 @@ class LoginActivity : AppCompatActivity(), LoginActivityCallback {
     private lateinit var loginViewModel: LoginViewModel
     private var fragment: Fragment? = null
     private var tag = ""
+    private val ROTATION = "ROTATION"
     companion object{
         val HASPASSWORD = "HASPASSWORD"
         val YETPASSWORD = "YETPASSWORD"
@@ -30,29 +32,14 @@ class LoginActivity : AppCompatActivity(), LoginActivityCallback {
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         loginViewModel.loginActivity = this
 
-        when {
-            loginViewModel.state == loginViewModel.NIM_STATE -> {
-                fragment = NimFragment()
-                tag = NimFragment.tag
-            }
-            loginViewModel.state == loginViewModel.PASS_STATE -> {
-                fragment = PassFragment()
-                tag = PassFragment.tag
-            }
-            loginViewModel.state == loginViewModel.CREATE_PASS_STATE -> {
-                fragment = CreatePassFragment()
-                tag = CreatePassFragment.tag
-            }
-        }
-        if (fragment != null) {
+        if (savedInstanceState == null){
+            fragment = NimFragment()
+            tag = NimFragment.tag
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.container_login, fragment!!,tag)
-                .addToBackStack(null)
                 .commit()
         }
-
-
     }
 
     override fun moveNext(to: String) {
@@ -72,7 +59,7 @@ class LoginActivity : AppCompatActivity(), LoginActivityCallback {
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.container_login, fragment!!,tag)
-                .addToBackStack(null)
+                .addToBackStack(tag)
                 .commit()
         }
 
@@ -87,4 +74,10 @@ class LoginActivity : AppCompatActivity(), LoginActivityCallback {
         finish()
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(ROTATION,ROTATION)
+    }
+
 }
+

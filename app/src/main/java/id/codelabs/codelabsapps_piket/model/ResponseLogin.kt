@@ -11,6 +11,6 @@ data class ResponseLogin(
     @SerializedName("message")
     var message : String,
     @Expose
-    @SerializedName("token")
-    var token : String
+    @SerializedName("data")
+    var data : ResponseData
 )

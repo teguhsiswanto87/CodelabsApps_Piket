@@ -121,5 +121,21 @@
     <style name="TextAppearance.Piket.Toolbar" parent="TextAppearance.MaterialComponents.Button">
         <item name="android:textSize">16sp</item>
     </style>
+    
+    <style name="Theme.Piket.SelectedFullDate"> <!-- Oct. Hari Ini, yq paling atas -->
+
+    </style>
+    <style name="Theme.Piket.SelectedDay"> <!-- SelectedDay -->
+
+    </style>
+    <style name="Theme.Piket.Day"><!-- Day -->
+
+    </style>
+    <style name="Theme.Piket.SelectedDate"><!-- SelectedDate -->
+
+    </style>
+    <style name="Theme.Piket.Date"><!-- Date -->
+
+    </style>
 
 </resources>

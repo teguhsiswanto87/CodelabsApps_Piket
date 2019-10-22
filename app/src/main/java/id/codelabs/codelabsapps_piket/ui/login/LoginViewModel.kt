@@ -38,7 +38,7 @@ class LoginViewModel : ViewModel(){
     fun login(callback : DataSource.LoginCallback){
         DataSource.login(nim,password,object : DataSource.LoginCallback {
             override fun onSuccess(response : ResponseLogin) {
-                token = response.token
+                token = response.data.token
 
                 Log.d("devnkjsakdn",nim)
                 Log.d("devnkjsakdn",password)
