@@ -95,7 +95,8 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/empty"
-                        android:visibility="invisible" />
+                        android:visibility="invisible"
+                        android:layout_marginBottom="32dp"/>
                 </FrameLayout>
 
                 <TextView
@@ -133,13 +134,16 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="@string/empty"
-                        android:visibility="invisible" />
+                        android:visibility="invisible"
+                        android:layout_marginBottom="32dp"/>
                 </FrameLayout>
 
                 <TextView
+                    android:id="@+id/tv_title_rv_belum_piket"
                     style="@style/Theme.Piket.ListTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:text="@string/belum_piket" />
 

@@ -1,6 +1,6 @@
 package id.codelabs.codelabsapps_piket.ui.login
 
-
+import id.codelabs.codelabsapps_piket.utils.Utils
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 
 import id.codelabs.codelabsapps_piket.R
-import id.codelabs.codelabsapps_piket.Utils
 import id.codelabs.codelabsapps_piket.data.DataSource
 import id.codelabs.codelabsapps_piket.model.ResponseLogin
 import kotlinx.android.synthetic.main.fragment_create_pass.*

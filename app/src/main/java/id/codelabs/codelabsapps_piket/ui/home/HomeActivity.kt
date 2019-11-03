@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.firebase.iid.FirebaseInstanceId
 import id.codelabs.codelabsapps_piket.R
-import id.codelabs.codelabsapps_piket.Utils
+import id.codelabs.codelabsapps_piket.utils.AlertDialogResultListener
+import id.codelabs.codelabsapps_piket.utils.Utils
 import id.codelabs.codelabsapps_piket.data.DataSource
 import id.codelabs.codelabsapps_piket.model.ModelItem
 import id.codelabs.codelabsapps_piket.ui.home.customDatePicker.DatePickerAdapter
@@ -33,6 +34,7 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
     private lateinit var sudahPiketAdapter: SudahPiketAdapter
     private lateinit var datePickerAdapter: DatePickerAdapter
 
+    @SuppressLint("SimpleDateFormat")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -60,6 +62,12 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
             val currentDate = SimpleDateFormat("YYYY-MM-dd", Locale.getDefault()).format(Date())
             homeViewModel.currentDate = currentDate
         }
+
+        val strBuilder = StringBuilder()
+        strBuilder.append(resources.getString(R.string.belum_piket))
+        strBuilder.append(" - ")
+        strBuilder.append(SimpleDateFormat("MMMM", Locale.ENGLISH).format(homeViewModel.cal.time))
+        tv_title_rv_belum_piket.text = strBuilder.toString()
 
         perpareDatePicker(homeViewModel.cal, 5)
         preparePiketList()
@@ -89,6 +97,7 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
     }
 
     private fun getItemPiketList(date: String) {
+        datePickerAdapter.isClickable = false
         iv_loading_rv_piket.visibility = View.VISIBLE
         tv_information_piket_list.visibility = View.INVISIBLE
         homeViewModel.getPiketList(date, getPiketCallback)
@@ -108,6 +117,9 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
             rv_piket.adapter = piketAdapter
             piketAdapter.notifyDataSetChanged()
 
+            if (!homeViewModel.loadingPiketListStatus && !homeViewModel.loadingSudahPiketListStatus) {
+                datePickerAdapter.isClickable = true
+            }
         }
 
         override fun onFailure(message: String) {
@@ -117,6 +129,10 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
             piketAdapter.notifyDataSetChanged()
             tv_information_piket_list.setText(R.string.failed)
             tv_information_piket_list.visibility = View.VISIBLE
+
+            if (!homeViewModel.loadingPiketListStatus && !homeViewModel.loadingSudahPiketListStatus) {
+                datePickerAdapter.isClickable = true
+            }
         }
     }
 
@@ -129,6 +145,7 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
     }
 
     private fun getItemSudahPiketList(date: String) {
+        datePickerAdapter.isClickable = false
         iv_loading_rv_sudah_piket.visibility = View.VISIBLE
         tv_information_sudah_piket_list.visibility = View.INVISIBLE
         homeViewModel.getSudahPiketList(date, getSudahPiketCallback)
@@ -148,6 +165,9 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
             rv_sudah_piket.adapter = sudahPiketAdapter
             sudahPiketAdapter.notifyDataSetChanged()
 
+            if (!homeViewModel.loadingPiketListStatus && !homeViewModel.loadingSudahPiketListStatus) {
+                datePickerAdapter.isClickable = true
+            }
         }
 
         override fun onFailure(message: String) {
@@ -157,6 +177,10 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
             sudahPiketAdapter.notifyDataSetChanged()
             tv_information_sudah_piket_list.setText(R.string.failed)
             tv_information_sudah_piket_list.visibility = View.VISIBLE
+
+            if (!homeViewModel.loadingPiketListStatus && !homeViewModel.loadingSudahPiketListStatus) {
+                datePickerAdapter.isClickable = true
+            }
         }
     }
 
@@ -207,6 +231,7 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
         getItemPiketList(date)
         homeViewModel.sudahPiketList.clear()
         getItemSudahPiketList(homeViewModel.selectedDate)
+        getItemBelumPiketList()
         val strBuilder = StringBuilder()
         strBuilder.append(
             SimpleDateFormat("MMM", Locale.ENGLISH)
@@ -220,13 +245,18 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
 
         if ((date1[0].toInt() == date2[0].toInt())
             && (date1[1].toInt() == date2[1].toInt())
-            && (date1[2].toInt() == date2[2].toInt())) {
+            && (date1[2].toInt() == date2[2].toInt())
+        ) {
             strBuilder.append("Hari Ini")
         } else {
             strBuilder.append(date.split("-")[2])
         }
 
         tv_full_selected_date.text = strBuilder.toString()
+    }
+
+    override fun onNotClickableClickCDP() {
+        Utils.showToast(this, "Mohon tunggu...", 500)
     }
 
     private fun onRefresh() {
@@ -252,47 +282,80 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
 
     }
 
-    override fun onClickButtonSelesaiItemPiket(member: ModelItem, loadingView : ImageView, btn : Button) {
-        btn.text = ""
-        btn.isClickable = false
-        loadingView.visibility = View.VISIBLE
-        homeViewModel.permohonanSelesaiPiket(member.id,object :
-            DataSource.PermohonanSelesaiPiketCallback {
-            override fun onSuccess(data : ModelItem) {
-                onRefresh()
-            }
+    override fun onClickButtonSelesaiItemPiket(
+        member: ModelItem,
+        loadingView: ImageView,
+        btn: Button
+    ) {
+        Utils.showAlertDialog(
+            this,
+            "Are you sure?",
+            "Yes",
+            "No",
+            object : AlertDialogResultListener {
+                override fun onPositiveResult() {
+                    btn.text = ""
+                    btn.isClickable = false
+                    loadingView.visibility = View.VISIBLE
+                    homeViewModel.permohonanSelesaiPiket(member.id, object :
+                        DataSource.PermohonanSelesaiPiketCallback {
+                        override fun onSuccess(data: ModelItem) {
+                            onRefresh()
+                        }
 
-            override fun onFailure(message: String) {
-                loadingView.visibility = View.INVISIBLE
-                btn.isClickable = true
-                Utils.showToast(this@HomeActivity,"Gagal",800)
-                btn.text = resources.getString(R.string.selesai)
-            }
+                        override fun onFailure(message: String) {
+                            loadingView.visibility = View.INVISIBLE
+                            btn.isClickable = true
+                            Utils.showToast(this@HomeActivity, "Gagal", 800)
+                            btn.text = resources.getString(R.string.selesai)
+                        }
+                    })
+                }
 
-        })
+                override fun onNegativeResult() {
+                }
+            })
     }
 
 
-    override fun onClickButtonSelesaiItemSudahPiket(member: ModelItem, loadingView : ImageView, btn : Button, checklist : ImageView) {
-        btn.text = ""
-        btn.isClickable = false
-        loadingView.visibility = View.VISIBLE
-        homeViewModel.inspeksiPiket(member.id,object : DataSource.InspeksiPiketCallback {
-            override fun onSuccess(data : ModelItem) {
-//                onRefresh()
-                loadingView.visibility = View.GONE
-                btn.visibility = View.GONE
-                checklist.visibility = View.VISIBLE
-            }
+    override fun onClickButtonSelesaiItemSudahPiket(
+        member: ModelItem,
+        loadingView: ImageView,
+        btn: Button,
+        checklist: ImageView
+    ) {
+        Utils.showAlertDialog(
+            this,
+            "Are you sure?",
+            "Yes",
+            "No",
+            object : AlertDialogResultListener {
+                override fun onPositiveResult() {
+                    btn.text = ""
+                    btn.isClickable = false
+                    loadingView.visibility = View.VISIBLE
+                    homeViewModel.inspeksiPiket(
+                        member.id,
+                        object : DataSource.InspeksiPiketCallback {
+                            override fun onSuccess(data: ModelItem) {
+                                loadingView.visibility = View.GONE
+                                btn.visibility = View.GONE
+                                checklist.visibility = View.VISIBLE
+                            }
 
-            override fun onFailure(message: String) {
-                loadingView.visibility = View.INVISIBLE
-                btn.isClickable = true
-                Utils.showToast(this@HomeActivity,"Gagal",800)
-                btn.text = resources.getString(R.string.selesai)
-            }
+                            override fun onFailure(message: String) {
+                                loadingView.visibility = View.INVISIBLE
+                                btn.isClickable = true
+                                Utils.showToast(this@HomeActivity, "Gagal", 800)
+                                btn.text = resources.getString(R.string.selesai)
+                            }
+                        })
+                }
 
-        })
+                override fun onNegativeResult() {
+                }
+            }
+        )
     }
 
 }

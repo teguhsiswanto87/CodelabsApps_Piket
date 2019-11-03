@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import id.codelabs.codelabsapps_piket.R
-import id.codelabs.codelabsapps_piket.Utils
+import id.codelabs.codelabsapps_piket.utils.Utils
 import id.codelabs.codelabsapps_piket.model.ModelItem
 
 class SudahPiketAdapter(var callback : OnClickButtonItemSudahPiketListListener) : RecyclerView.Adapter<SudahPiketAdapter.PiketViewHolder>(){

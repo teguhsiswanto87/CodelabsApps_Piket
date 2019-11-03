@@ -2,7 +2,7 @@ package id.codelabs.codelabsapps_piket.ui.login
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import id.codelabs.codelabsapps_piket.Utils
+import id.codelabs.codelabsapps_piket.utils.Utils
 import id.codelabs.codelabsapps_piket.data.DataSource
 import id.codelabs.codelabsapps_piket.model.ResponseLogin
 
@@ -47,8 +47,10 @@ class LoginViewModel : ViewModel() {
                 Utils.putSharedPreferences(Utils.SAVED_PASSWORD, password)
                 Utils.putSharedPreferences(Utils.SAVED_TOKEN, token)
 
-                Log.d("{devbacot}prev : ", Utils.getSharedPreferences(Utils.SAVED_NIM)!!)
-                Log.d("{devbacot}prev : ", Utils.getSharedPreferences(Utils.SAVED_PASSWORD)!!)
+                Log.d("{devbacot}prev : ", Utils.getSharedPreferences(
+                    Utils.SAVED_NIM)!!)
+                Log.d("{devbacot}prev : ", Utils.getSharedPreferences(
+                    Utils.SAVED_PASSWORD)!!)
 
                 callback.onSuccess(response)
             }

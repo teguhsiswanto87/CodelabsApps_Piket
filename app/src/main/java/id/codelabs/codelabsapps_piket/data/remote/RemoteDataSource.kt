@@ -1,6 +1,6 @@
 package id.codelabs.codelabsapps_piket.data.remote
 
-import id.codelabs.codelabsapps_piket.Utils
+import id.codelabs.codelabsapps_piket.utils.Utils
 import id.codelabs.codelabsapps_piket.data.DataSource
 import id.codelabs.codelabsapps_piket.model.*
 import id.codelabs.codelabsapps_piket.ui.login.LoginActivity
@@ -124,7 +124,9 @@ class RemoteDataSource {
     fun getSudahPiket(date: String, callback: DataSource.GetSudahPiketCallback) {
         try {
             val call: Call<ResponseListPiket> =
-                dao.getSudahPiketTgl(Utils.getSharedPreferences(Utils.SAVED_TOKEN)!!, date)
+                dao.getSudahPiketTgl(
+                    Utils.getSharedPreferences(
+                        Utils.SAVED_TOKEN)!!, date)
             call.enqueue(object : Callback<ResponseListPiket> {
                 override fun onFailure(call: Call<ResponseListPiket>, t: Throwable) {
                     callback.onFailure(t.toString())

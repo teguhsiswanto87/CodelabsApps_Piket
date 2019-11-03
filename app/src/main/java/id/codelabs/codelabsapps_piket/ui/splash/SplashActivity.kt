@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import id.codelabs.codelabsapps_piket.R
-import id.codelabs.codelabsapps_piket.Utils
+import id.codelabs.codelabsapps_piket.utils.Utils
 import id.codelabs.codelabsapps_piket.ui.home.HomeActivity
 import id.codelabs.codelabsapps_piket.ui.login.LoginActivity
 
@@ -30,7 +30,8 @@ class SplashActivity : AppCompatActivity() {
         val intent: Intent = if (Utils.getSharedPreferences(Utils.SAVED_NIM) == Utils._404) {
             Intent(applicationContext, LoginActivity::class.java)
         } else {
-            Log.d("{devbacot}savednim :", Utils.getSharedPreferences(Utils.SAVED_NIM)!!)
+            Log.d("{devbacot}savednim :", Utils.getSharedPreferences(
+                Utils.SAVED_NIM)!!)
             Intent(applicationContext, HomeActivity::class.java)
         }
         startActivity(intent)

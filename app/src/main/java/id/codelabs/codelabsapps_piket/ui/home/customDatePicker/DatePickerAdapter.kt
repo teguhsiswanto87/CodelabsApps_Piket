@@ -24,6 +24,7 @@ class DatePickerAdapter(
 
     private var listDatePicker = CustomDatePickerUtils.generateDate(calendar, numberOfWeek)
 
+    var isClickable = true
 
     init {
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
@@ -185,15 +186,15 @@ class DatePickerAdapter(
 
 
     private fun onItemClickListener(position: Int, days: Int, tv: TextView, marker: ImageView) {
-        changeSelectedItem(tv, marker)
-
-        val strDateBuilder = StringBuilder()
-        strDateBuilder.append(listDatePicker[position][days].year.toString() + "-")
-        strDateBuilder.append(listDatePicker[position][days].month.toString() + "-")
-        strDateBuilder.append(listDatePicker[position][days].date)
-        val date = strDateBuilder.toString()
-        callback.onClickItemCustomDatePicker(date)
-
+        if (isClickable) {
+            changeSelectedItem(tv, marker)
+            val strDateBuilder = StringBuilder()
+            strDateBuilder.append(listDatePicker[position][days].year.toString() + "-")
+            strDateBuilder.append(listDatePicker[position][days].month.toString() + "-")
+            strDateBuilder.append(listDatePicker[position][days].date)
+            val date = strDateBuilder.toString()
+            callback.onClickItemCustomDatePicker(date)
+        }else callback.onNotClickableClickCDP()
     }
 
     class DatePickerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

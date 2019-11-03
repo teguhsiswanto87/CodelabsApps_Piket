@@ -2,7 +2,7 @@ package id.codelabs.codelabsapps_piket.ui.home
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
-import id.codelabs.codelabsapps_piket.Utils
+import id.codelabs.codelabsapps_piket.utils.Utils
 import id.codelabs.codelabsapps_piket.data.DataSource
 import id.codelabs.codelabsapps_piket.model.ModelItem
 import java.text.SimpleDateFormat
@@ -21,20 +21,25 @@ class HomeViewModel : ViewModel() {
     var selectedDate = ""
     var dateOnPiketList = ""
     lateinit var homeActivity : HomeActivity
+    var loadingPiketListStatus = false
+    var loadingSudahPiketListStatus = false
 
 
     fun getPiketList(date: String, callback: DataSource.GetPiketCallback) {
         selectedDate = date
         if (selectedDate != dateOnPiketList) {
+            loadingPiketListStatus = true
             dataSource.getPiket(selectedDate, object : DataSource.GetPiketCallback {
                 override fun onSuccess(list: List<ModelItem>) {
                     piketList.clear()
                     piketList.addAll(list)
                     dateOnPiketList = selectedDate
+                    loadingPiketListStatus = false
                     callback.onSuccess(list)
                 }
 
                 override fun onFailure(message: String) {
+                    loadingPiketListStatus = false
                     callback.onFailure(message)
                 }
 
@@ -48,15 +53,18 @@ class HomeViewModel : ViewModel() {
     fun getSudahPiketList(date: String, callback: DataSource.GetSudahPiketCallback) {
         selectedDate = date
         if (selectedDate != dateOnPiketList) {
+            loadingSudahPiketListStatus = true
             dataSource.getSudahPiket(selectedDate, object : DataSource.GetSudahPiketCallback {
                 override fun onSuccess(list: List<ModelItem>) {
                     sudahPiketList.clear()
                     sudahPiketList.addAll(list)
                     dateOnPiketList = selectedDate
+                    loadingSudahPiketListStatus = false
                     callback.onSuccess(list)
                 }
 
                 override fun onFailure(message: String) {
+                    loadingSudahPiketListStatus = false
                     callback.onFailure(message)
                 }
 
