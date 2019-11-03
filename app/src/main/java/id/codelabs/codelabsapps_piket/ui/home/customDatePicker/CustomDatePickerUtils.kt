@@ -1,25 +1,32 @@
 package id.codelabs.codelabsapps_piket.ui.home.customDatePicker
 
+import android.annotation.SuppressLint
 import android.widget.ImageView
 import android.widget.TextView
-import id.codelabs.codelabsapps_piket.Utils
 import java.text.SimpleDateFormat
 import java.util.*
 
 class CustomDatePickerUtils {
     companion object {
+
+
+        @SuppressLint("StaticFieldLeak")
         var selectedDateTextView : TextView? = null
+        @SuppressLint("StaticFieldLeak")
         var selectedDateMarker : ImageView? = null
 
+        private var maxDayMonth = arrayOf(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
+        private var thisYear: Int? = null
         private var listDatePicker: Array<Array<ModelDate>>? = null
         private lateinit var cal: Calendar
+        @SuppressLint("SimpleDateFormat")
         private val simpleDateFormat = SimpleDateFormat("YYYY-MM-dd")
         private lateinit var currentDate: String
         private lateinit var splitCurrentDate: List<String>
         private var mNumberOfWeeks = 0
         private var midValNumberOfWeeksIndex: Int = 0
 
-        fun generateDate(calendar: Calendar, numberOfWeeks: Int): Array<Array<ModelDate>> {
+        fun generateDate(calendarInstance: Calendar, numberOfWeeks: Int): Array<Array<ModelDate>> {
 
             if (listDatePicker == null) {
 
@@ -27,9 +34,12 @@ class CustomDatePickerUtils {
 
                 mNumberOfWeeks = numberOfWeeks
                 midValNumberOfWeeksIndex = (mNumberOfWeeks / 2)
-                cal = calendar
+                cal = calendarInstance
                 currentDate = simpleDateFormat.format(cal.time)
                 splitCurrentDate = currentDate.split("-")
+
+                thisYear = cal.get(Calendar.YEAR)
+                if (thisYear!! % 4 == 0) maxDayMonth[1] = 29
 
                 var tempThisYear = splitCurrentDate[0].toInt()
                 var tempThisMonth = splitCurrentDate[1].toInt()
@@ -47,7 +57,7 @@ class CustomDatePickerUtils {
                         tempThisMonth = 12
                         tempThisYear -= 1
                     }
-                    val maxDayThisMonth = Utils.maxDayMonth[tempThisMonth - 1]
+                    val maxDayThisMonth = maxDayMonth[tempThisMonth - 1]
                     dateOfMondayThisWeek += maxDayThisMonth
                 }
 
@@ -94,7 +104,7 @@ class CustomDatePickerUtils {
                             tempMonth = 12
                             tempYear -= 1
                         }
-                        val maxDayThisMonth = Utils.maxDayMonth[tempMonth - 1]
+                        val maxDayThisMonth = maxDayMonth[tempMonth - 1]
                         tempDate = maxDayThisMonth
                     }
                     val tempModelDate =
@@ -114,7 +124,7 @@ class CustomDatePickerUtils {
                 var tempDate = listDatePicker!![midValNumberOfWeeksIndex][j - 1].date + 1
                 var tempMonth = listDatePicker!![midValNumberOfWeeksIndex][j - 1].month
                 var tempYear = listDatePicker!![midValNumberOfWeeksIndex][j - 1].year
-                val maxDayMonth = Utils.maxDayMonth[tempMonth - 1]
+                val maxDayMonth = maxDayMonth[tempMonth - 1]
                 if (tempDate > maxDayMonth) {
                     tempMonth += 1
                     if (tempMonth > 12) {
@@ -135,7 +145,7 @@ class CustomDatePickerUtils {
 
 
         private fun generateAfterDate() {
-            for (i in (midValNumberOfWeeksIndex + 1)..(mNumberOfWeeks - 1)) {
+            for (i in (midValNumberOfWeeksIndex + 1) until mNumberOfWeeks) {
                 val tempArray = Array(7) {
                     ModelDate(
                         0,
@@ -156,7 +166,7 @@ class CustomDatePickerUtils {
                         tempMonth = tempArray[j - 1].month
                         tempYear = tempArray[j - 1].year
                     }
-                    val maxDayThisMonth = Utils.maxDayMonth[tempMonth - 1]
+                    val maxDayThisMonth = maxDayMonth[tempMonth - 1]
                     if (tempDate > maxDayThisMonth) {
                         tempMonth += 1
                         if (tempMonth > 12) {

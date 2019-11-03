@@ -59,4 +59,16 @@
         app:layout_constraintStart_toStartOf="@+id/btn_selesai"
         app:layout_constraintTop_toTopOf="@+id/btn_selesai" />
 
+    <ImageView
+        android:id="@+id/iv_checklist"
+        android:src="@drawable/tick"
+        android:layout_width="30dp"
+        android:layout_height="30sp"
+        android:elevation="30dp"
+        android:visibility="invisible"
+        android:layout_marginRight="52dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

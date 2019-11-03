@@ -24,6 +24,7 @@ class PassFragment : Fragment(), DataSource.LoginCallback {
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var loginActivityCallback: LoginActivityCallback
+    private var ignoreTextChange = false
 
     companion object {
         val tag = PassFragment::class.java.simpleName
@@ -54,6 +55,7 @@ class PassFragment : Fragment(), DataSource.LoginCallback {
     }
 
     private fun clickLogin() {
+        textChangeListener()
         if (edt_layout_pass.error == null) {
             val password = edt_pass.text.toString()
             loginViewModel.login(password, this)
@@ -64,15 +66,14 @@ class PassFragment : Fragment(), DataSource.LoginCallback {
     }
 
     private fun textChangeListener() {
-        if (edt_pass.text.toString().isEmpty()) {
-            edt_layout_pass.error = "Password tidak boleh kosong"
-        } else edt_layout_pass.error = null
+        if (!ignoreTextChange) {
+            if (edt_pass.text.toString().isEmpty()) {
+                edt_layout_pass.error = "Password tidak boleh kosong"
+            } else edt_layout_pass.error = null
+        }
     }
 
     override fun onSuccess(response: ResponseLogin) {
-        iv_loading.visibility = View.INVISIBLE
-        btn_login.isClickable = true
-        btn_login.text = resources.getString(R.string.masuk)
         loginActivityCallback.successLogin()
     }
 
@@ -81,9 +82,11 @@ class PassFragment : Fragment(), DataSource.LoginCallback {
         btn_login.isClickable = true
         btn_login.text = resources.getString(R.string.masuk)
         if (message == LoginActivity.WRONG_PASSWORD) {
+            ignoreTextChange = true
+            edt_pass.setText("")
+            ignoreTextChange = false
             edt_layout_pass.error = "Password salah"
-        }
-        Utils.showToast(requireContext(), "Gagal memuat", 500)
+        } else Utils.showToast(requireContext(), "Gagal memuat", 500)
     }
 
 }

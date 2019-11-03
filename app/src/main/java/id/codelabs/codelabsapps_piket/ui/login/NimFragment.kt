@@ -50,6 +50,7 @@ class NimFragment : Fragment(), DataSource.CheckHasPasswordCallback {
     }
 
     private fun clickNext() {
+        textChangedListener()
         if (edt_layout_nim.error == null) {
             val nim = edt_nim.text.toString()
             loginViewModel.checkHasPassword(nim,this)
@@ -69,13 +70,16 @@ class NimFragment : Fragment(), DataSource.CheckHasPasswordCallback {
     }
 
     override fun onSuccess(message: String) {
-        iv_loading.visibility = View.INVISIBLE
-        btn_next.text = resources.getString(R.string.selanjutnya)
-        btn_next.isClickable = true
+
         when (message) {
             LoginActivity.HAS_PASSWORD -> loginActivityCallback.moveNext(loginViewModel.PASS_STATE)
             LoginActivity.YET_PASSWORD -> loginActivityCallback.moveNext(loginViewModel.CREATE_PASS_STATE)
-            LoginActivity.NOT_FOUND_NIM -> edt_layout_nim.error = "NIM tidak di temukan"
+            LoginActivity.NOT_FOUND_NIM -> {
+                edt_layout_nim.error = "NIM tidak di temukan"
+                iv_loading.visibility = View.INVISIBLE
+                btn_next.text = resources.getString(R.string.selanjutnya)
+                btn_next.isClickable = true
+            }
         }
     }
 

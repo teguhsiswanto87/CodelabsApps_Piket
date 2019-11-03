@@ -13,7 +13,6 @@
     <string name="example_nim">10118371</string>
     <string name="selamat_datang">Selamat Datang !</string>
     <string name="v1_0">v1.0</string>
-    <string name="cek_password">Cek Password</string>
     <string name="masuk">Masuk</string>
     <string name="buat_password">Buat Password</string>
     <string name="andri">Andri</string>
@@ -22,4 +21,5 @@
     <string name="failed">Failed</string>
     <string name="empty">Empty List</string>
     <string name="re_enter_password">Re-enter password</string>
+    <string name="masukkan_password">Masukkan Password</string>
 </resources>

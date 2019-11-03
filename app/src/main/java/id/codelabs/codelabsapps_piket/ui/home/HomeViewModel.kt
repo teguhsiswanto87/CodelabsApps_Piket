@@ -1,6 +1,6 @@
 package id.codelabs.codelabsapps_piket.ui.home
 
-import android.util.Log
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import id.codelabs.codelabsapps_piket.Utils
 import id.codelabs.codelabsapps_piket.data.DataSource
@@ -15,21 +15,22 @@ class HomeViewModel : ViewModel() {
     var sudahPiketList = ArrayList<ModelItem>()
     var belumPiketList = ArrayList<ModelItem>()
     var cal = Calendar.getInstance()
+    @SuppressLint("SimpleDateFormat")
     val simpleDateFormat = SimpleDateFormat("YYYY-MM-dd")
     var currentDate = simpleDateFormat.format(cal.time)
     var selectedDate = ""
-    var dateOnListPiket = ""
+    var dateOnPiketList = ""
     lateinit var homeActivity : HomeActivity
 
 
     fun getPiketList(date: String, callback: DataSource.GetPiketCallback) {
         selectedDate = date
-        if (selectedDate != dateOnListPiket) {
+        if (selectedDate != dateOnPiketList) {
             dataSource.getPiket(selectedDate, object : DataSource.GetPiketCallback {
                 override fun onSuccess(list: List<ModelItem>) {
                     piketList.clear()
                     piketList.addAll(list)
-                    dateOnListPiket = selectedDate
+                    dateOnPiketList = selectedDate
                     callback.onSuccess(list)
                 }
 
@@ -46,12 +47,12 @@ class HomeViewModel : ViewModel() {
 
     fun getSudahPiketList(date: String, callback: DataSource.GetSudahPiketCallback) {
         selectedDate = date
-        if (selectedDate != dateOnListPiket) {
+        if (selectedDate != dateOnPiketList) {
             dataSource.getSudahPiket(selectedDate, object : DataSource.GetSudahPiketCallback {
                 override fun onSuccess(list: List<ModelItem>) {
                     sudahPiketList.clear()
                     sudahPiketList.addAll(list)
-                    dateOnListPiket = selectedDate
+                    dateOnPiketList = selectedDate
                     callback.onSuccess(list)
                 }
 
@@ -90,14 +91,11 @@ class HomeViewModel : ViewModel() {
             override fun onSuccess() {
                 Utils.makeSharedPreferences(homeActivity)
                 Utils.putSharedPreferences(Utils.SAVED_FCM_TOKEN,fcmToken)
-                Log.d("dasdasdassad", "success")
-                Log.d("dasdasdassad", "success")
-                Log.d("dsadsad",Utils.getSharedPreferences(Utils.SAVED_FCM_TOKEN))
                 callback.onSuccess()
             }
 
             override fun onFailure(message: String) {
-                Log.d("dasdasdassad", "message")
+                callback.onFailure(message)
             }
 
         })

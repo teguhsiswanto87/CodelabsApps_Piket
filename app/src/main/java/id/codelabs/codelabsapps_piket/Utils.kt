@@ -11,13 +11,6 @@ class Utils {
 
     companion object {
 
-        var maxDayMonth = arrayOf(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
-        private var thisYear: Int = Calendar.getInstance().get(Calendar.YEAR)
-
-        init {
-            if (thisYear % 4 == 0) maxDayMonth[1] = 29
-        }
-
         const val MY_PREFS_NAME = "MY_PREFS_NAME"
         const val SAVED_PASSWORD = "PASSWORD"
         const val SAVED_NIM = "SAVED_NIM"

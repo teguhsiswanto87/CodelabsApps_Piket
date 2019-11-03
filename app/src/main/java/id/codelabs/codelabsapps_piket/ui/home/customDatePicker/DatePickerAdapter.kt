@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,9 +15,9 @@ import java.lang.StringBuilder
 import java.util.*
 
 class DatePickerAdapter(
-    var callback: OnClickItemCustomDatePickerListener,
-    var calendar: Calendar,
-    var context: Context,
+    private var callback: OnClickItemCustomDatePickerListener,
+    private var calendar: Calendar,
+    private var context: Context,
     numberOfWeek: Int,
     recyclerView: RecyclerView
 ) : RecyclerView.Adapter<DatePickerAdapter.DatePickerViewHolder>() {
@@ -63,7 +62,7 @@ class DatePickerAdapter(
         holder.tvC6.text = listDatePicker[position][5].date.toString()
         holder.tvC7.text = listDatePicker[position][6].date.toString()
 
-        holder.llD1.setOnClickListener {
+        holder.clD1.setOnClickListener {
             onItemClickListener(
                 position,
                 0,
@@ -71,7 +70,7 @@ class DatePickerAdapter(
                 holder.ivMarker1
             )
         }
-        holder.llD2.setOnClickListener {
+        holder.clD2.setOnClickListener {
             onItemClickListener(
                 position,
                 1,
@@ -79,7 +78,7 @@ class DatePickerAdapter(
                 holder.ivMarker2
             )
         }
-        holder.llD3.setOnClickListener {
+        holder.clD3.setOnClickListener {
             onItemClickListener(
                 position,
                 2,
@@ -87,7 +86,7 @@ class DatePickerAdapter(
                 holder.ivMarker3
             )
         }
-        holder.llD4.setOnClickListener {
+        holder.clD4.setOnClickListener {
             onItemClickListener(
                 position,
                 3,
@@ -95,7 +94,7 @@ class DatePickerAdapter(
                 holder.ivMarker4
             )
         }
-        holder.llD5.setOnClickListener {
+        holder.clD5.setOnClickListener {
             onItemClickListener(
                 position,
                 4,
@@ -103,7 +102,7 @@ class DatePickerAdapter(
                 holder.ivMarker5
             )
         }
-        holder.llD6.setOnClickListener {
+        holder.clD6.setOnClickListener {
             onItemClickListener(
                 position,
                 5,
@@ -111,7 +110,7 @@ class DatePickerAdapter(
                 holder.ivMarker6
             )
         }
-        holder.llD7.setOnClickListener {
+        holder.clD7.setOnClickListener {
             onItemClickListener(
                 position,
                 6,
@@ -193,18 +192,18 @@ class DatePickerAdapter(
         strDateBuilder.append(listDatePicker[position][days].month.toString() + "-")
         strDateBuilder.append(listDatePicker[position][days].date)
         val date = strDateBuilder.toString()
-        callback.OnClickItemCustomDatePicker(date)
+        callback.onClickItemCustomDatePicker(date)
 
     }
 
     class DatePickerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var llD1: ConstraintLayout = itemView.findViewById(R.id.ll_d1)
-        var llD2: ConstraintLayout = itemView.findViewById(R.id.ll_d2)
-        var llD3: ConstraintLayout = itemView.findViewById(R.id.ll_d3)
-        var llD4: ConstraintLayout = itemView.findViewById(R.id.ll_d4)
-        var llD5: ConstraintLayout = itemView.findViewById(R.id.ll_d5)
-        var llD6: ConstraintLayout = itemView.findViewById(R.id.ll_d6)
-        var llD7: ConstraintLayout = itemView.findViewById(R.id.ll_d7)
+        var clD1: ConstraintLayout = itemView.findViewById(R.id.ll_d1)
+        var clD2: ConstraintLayout = itemView.findViewById(R.id.ll_d2)
+        var clD3: ConstraintLayout = itemView.findViewById(R.id.ll_d3)
+        var clD4: ConstraintLayout = itemView.findViewById(R.id.ll_d4)
+        var clD5: ConstraintLayout = itemView.findViewById(R.id.ll_d5)
+        var clD6: ConstraintLayout = itemView.findViewById(R.id.ll_d6)
+        var clD7: ConstraintLayout = itemView.findViewById(R.id.ll_d7)
 
         var tvC1: TextView = itemView.findViewById(R.id.tv_c1)
         var tvC2: TextView = itemView.findViewById(R.id.tv_c2)
@@ -232,44 +231,3 @@ class DatePickerAdapter(
     }
 
 }
-
-
-//    private fun unselectAll(holder:DatePickerViewHolder){
-//        holder.tvC1.setTextColor(context.resources.getColor(R.color.black))
-//        holder.tvC2.setTextColor(context.resources.getColor(R.color.black))
-//        holder.tvC3.setTextColor(context.resources.getColor(R.color.black))
-//        holder.tvC4.setTextColor(context.resources.getColor(R.color.black))
-//        holder.tvC5.setTextColor(context.resources.getColor(R.color.black))
-//        holder.tvC6.setTextColor(context.resources.getColor(R.color.black))
-//        holder.tvC7.setTextColor(context.resources.getColor(R.color.black))
-//
-//        holder.ivMarker1.visibility = View.INVISIBLE
-//        holder.ivMarker2.visibility = View.INVISIBLE
-//        holder.ivMarker3.visibility = View.INVISIBLE
-//        holder.ivMarker4.visibility = View.INVISIBLE
-//        holder.ivMarker5.visibility = View.INVISIBLE
-//        holder.ivMarker6.visibility = View.INVISIBLE
-//        holder.ivMarker7.visibility = View.INVISIBLE
-//    }
-//
-//    private fun unselectLiteralyAll() {
-//        for (i in 0 until itemCount) {
-//            var viewGroup = recyclerView.layoutManager!!.findViewByPosition(i)!!
-//
-//            viewGroup.findViewById<TextView>(R.id.tv_c1).setTextColor(context.resources.getColor(R.color.black))
-//            viewGroup.findViewById<TextView>(R.id.tv_c2).setTextColor(context.resources.getColor(R.color.black))
-//            viewGroup.findViewById<TextView>(R.id.tv_c3).setTextColor(context.resources.getColor(R.color.black))
-//            viewGroup.findViewById<TextView>(R.id.tv_c4).setTextColor(context.resources.getColor(R.color.black))
-//            viewGroup.findViewById<TextView>(R.id.tv_c5).setTextColor(context.resources.getColor(R.color.black))
-//            viewGroup.findViewById<TextView>(R.id.tv_c6).setTextColor(context.resources.getColor(R.color.black))
-//            viewGroup.findViewById<TextView>(R.id.tv_c7).setTextColor(context.resources.getColor(R.color.black))
-//
-//            viewGroup.findViewById<ImageView>(R.id.iv_marker1).visibility = View.INVISIBLE
-//            viewGroup.findViewById<ImageView>(R.id.iv_marker2).visibility = View.INVISIBLE
-//            viewGroup.findViewById<ImageView>(R.id.iv_marker3).visibility = View.INVISIBLE
-//            viewGroup.findViewById<ImageView>(R.id.iv_marker4).visibility = View.INVISIBLE
-//            viewGroup.findViewById<ImageView>(R.id.iv_marker5).visibility = View.INVISIBLE
-//            viewGroup.findViewById<ImageView>(R.id.iv_marker6).visibility = View.INVISIBLE
-//            viewGroup.findViewById<ImageView>(R.id.iv_marker7).visibility = View.INVISIBLE
-//        }
-//    }

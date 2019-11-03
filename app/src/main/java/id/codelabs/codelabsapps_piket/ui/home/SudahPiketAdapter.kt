@@ -28,11 +28,15 @@ class SudahPiketAdapter(var callback : OnClickButtonItemSudahPiketListListener) 
             .load(R.drawable.loading)
             .into(holder.ivLoading)
         holder.btnSelesai.setOnClickListener {
-            callback.onClickButtonSelesaiItemSudahPiket(list[position],holder.ivLoading, holder.btnSelesai)
+            callback.onClickButtonSelesaiItemSudahPiket(list[position],holder.ivLoading, holder.btnSelesai,holder.ivChecklist)
         }
 
         if(list[position].nim == Utils.getSharedPreferences(Utils.SAVED_NIM)){
             holder.btnSelesai.visibility = View.GONE
+        }
+        if(!list[position].diperiksaOleh.isNullOrEmpty()){
+            holder.btnSelesai.visibility = View.GONE
+            holder.ivChecklist.visibility = View.VISIBLE
         }
     }
 
@@ -41,10 +45,11 @@ class SudahPiketAdapter(var callback : OnClickButtonItemSudahPiketListListener) 
         var duty : TextView = itemView.findViewById(R.id.tv_duty)
         var btnSelesai : Button = itemView.findViewById(R.id.btn_selesai)
         var ivLoading : ImageView = itemView.findViewById(R.id.iv_loading)
+        var ivChecklist : ImageView = itemView.findViewById(R.id.iv_checklist)
     }
 
     interface OnClickButtonItemSudahPiketListListener {
-        fun onClickButtonSelesaiItemSudahPiket(member : ModelItem, loadingView : ImageView, btn : Button)
+        fun onClickButtonSelesaiItemSudahPiket(member : ModelItem, loadingView : ImageView, btn : Button, checklist : ImageView)
     }
 
 }

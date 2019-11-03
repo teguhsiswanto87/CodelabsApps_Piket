@@ -11,35 +11,26 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp">
 
-        <ImageView
-            android:id="@+id/iv_cl"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:layout_marginEnd="32dp"
-            android:src="@drawable/codelabs_small_green"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/tv_entered_nim"
             style="@style/Theme.Piket.Welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="120dp"
+            android:layout_marginTop="64dp"
             android:text="@string/example_nim"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_cl" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_pass"
-            style="@style/Theme.Piket.LoginFieldTitle"
+            android:id="@+id/tv_buat_password"
+            style="@style/Theme.Piket.SubWelcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/password"
-            app:layout_constraintStart_toStartOf="@+id/tv_entered_nim"
+            android:layout_marginTop="100dp"
+            android:text="@string/buat_password"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_entered_nim" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -47,11 +38,14 @@
             style="@style/TextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="64dp"
             android:layout_marginEnd="32dp"
+            android:hint="@string/password"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_pass"
-            app:layout_constraintTop_toBottomOf="@+id/tv_pass">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_buat_password">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_pass"
@@ -62,26 +56,17 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/tv_repass"
-            style="@style/Theme.Piket.LoginFieldTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:text="@string/re_enter_password"
-            app:layout_constraintStart_toStartOf="@+id/tv_entered_nim"
-            app:layout_constraintTop_toBottomOf="@+id/edt_layout_pass" />
-
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edt_layout_repass"
             style="@style/TextInputLayout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="32dp"
+            android:layout_marginTop="32dp"
+            android:hint="@string/re_enter_password"
             app:endIconMode="password_toggle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/tv_repass"
-            app:layout_constraintTop_toBottomOf="@+id/tv_repass">
+            app:layout_constraintEnd_toEndOf="@+id/edt_layout_pass"
+            app:layout_constraintStart_toStartOf="@+id/edt_layout_pass"
+            app:layout_constraintTop_toBottomOf="@+id/edt_layout_pass">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_repass"

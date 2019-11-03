@@ -1,5 +1,6 @@
 package id.codelabs.codelabsapps_piket.ui.home
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_home.*
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
     PiketAdapter.OnClickButtonItemPiketListListener,
@@ -68,7 +70,7 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
         val fcmToken = FirebaseInstanceId.getInstance().token
         if (fcmToken!!.isNotEmpty()) {
             homeViewModel.updateFCMToken(fcmToken, updateFCMTokenCallback)
-            Log.d("dasdsa", fcmToken)
+            Log.d("{devbacot}fcmToken : ", fcmToken)
         }
 
 
@@ -89,16 +91,16 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
     private fun getItemPiketList(date: String) {
         iv_loading_rv_piket.visibility = View.VISIBLE
         tv_information_piket_list.visibility = View.INVISIBLE
-        homeViewModel.getPiketList(date, getPiketTglCallback)
+        homeViewModel.getPiketList(date, getPiketCallback)
     }
 
-    private val getPiketTglCallback = object : DataSource.GetPiketCallback {
+    private val getPiketCallback = object : DataSource.GetPiketCallback {
         override fun onSuccess(list: List<ModelItem>) {
             iv_loading_rv_piket.visibility = View.GONE
             piketAdapter.list.clear()
 
             if (list.isNotEmpty()) {
-                piketAdapter.list.addAll(list)
+                piketAdapter.list = list as ArrayList<ModelItem>
             } else {
                 tv_information_piket_list.setText(R.string.empty)
                 tv_information_piket_list.visibility = View.VISIBLE
@@ -129,10 +131,10 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
     private fun getItemSudahPiketList(date: String) {
         iv_loading_rv_sudah_piket.visibility = View.VISIBLE
         tv_information_sudah_piket_list.visibility = View.INVISIBLE
-        homeViewModel.getSudahPiketList(date, getSudahPiketTglCallback)
+        homeViewModel.getSudahPiketList(date, getSudahPiketCallback)
     }
 
-    private val getSudahPiketTglCallback = object : DataSource.GetSudahPiketCallback {
+    private val getSudahPiketCallback = object : DataSource.GetSudahPiketCallback {
         override fun onSuccess(list: List<ModelItem>) {
             iv_loading_rv_sudah_piket.visibility = View.GONE
             sudahPiketAdapter.list.clear()
@@ -198,21 +200,22 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
     }
 
 
-    override fun OnClickItemCustomDatePicker(date: String) {
-        homeViewModel.dateOnListPiket = ""
+    @SuppressLint("SimpleDateFormat")
+    override fun onClickItemCustomDatePicker(date: String) {
+        homeViewModel.dateOnPiketList = ""
         homeViewModel.piketList.clear()
         getItemPiketList(date)
         homeViewModel.sudahPiketList.clear()
         getItemSudahPiketList(homeViewModel.selectedDate)
-        var strBuilder = StringBuilder()
+        val strBuilder = StringBuilder()
         strBuilder.append(
             SimpleDateFormat("MMM", Locale.ENGLISH)
-                .format(SimpleDateFormat("yyyy-MM-dd").parse(date))
+                .format(SimpleDateFormat("yyyy-MM-dd").parse(date)!!)
         )
         strBuilder.append(", ")
 
-        var date1 = date.split("-")
-        var date2 = homeViewModel.currentDate.split("-")
+        val date1 = date.split("-")
+        val date2 = homeViewModel.currentDate.split("-")
 
 
         if ((date1[0].toInt() == date2[0].toInt())
@@ -227,7 +230,7 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
     }
 
     private fun onRefresh() {
-        homeViewModel.dateOnListPiket = ""
+        homeViewModel.dateOnPiketList = ""
         homeViewModel.piketList.clear()
         getItemPiketList(homeViewModel.selectedDate)
         homeViewModel.sudahPiketList.clear()
@@ -238,27 +241,31 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
 
 
     private val updateFCMTokenCallback = object : DataSource.UpdateFCMTokenCallback {
-        override fun onSuccess() {}
+        override fun onSuccess() {
+            Log.d("{devbacot}fcmToken : ", "success update fcm token")
+        }
 
-        override fun onFailure(message: String) {}
+        override fun onFailure(message: String) {
+            Log.d("{devbacot}fcmToken : ", "failed update fcm token")
+            Log.d("{devbacot}fcmToken : ", message)
+        }
 
     }
 
     override fun onClickButtonSelesaiItemPiket(member: ModelItem, loadingView : ImageView, btn : Button) {
-        loadingView.visibility = View.VISIBLE
         btn.text = ""
+        btn.isClickable = false
+        loadingView.visibility = View.VISIBLE
         homeViewModel.permohonanSelesaiPiket(member.id,object :
             DataSource.PermohonanSelesaiPiketCallback {
             override fun onSuccess(data : ModelItem) {
                 onRefresh()
-                loadingView.visibility = View.INVISIBLE
-                btn.text = resources.getString(R.string.selesai)
             }
 
             override fun onFailure(message: String) {
                 loadingView.visibility = View.INVISIBLE
+                btn.isClickable = true
                 Utils.showToast(this@HomeActivity,"Gagal",800)
-                Log.d("sdasdjdkshda",message)
                 btn.text = resources.getString(R.string.selesai)
             }
 
@@ -266,18 +273,21 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
     }
 
 
-    override fun onClickButtonSelesaiItemSudahPiket(member: ModelItem, loadingView : ImageView, btn : Button) {
-        loadingView.visibility = View.VISIBLE
+    override fun onClickButtonSelesaiItemSudahPiket(member: ModelItem, loadingView : ImageView, btn : Button, checklist : ImageView) {
         btn.text = ""
+        btn.isClickable = false
+        loadingView.visibility = View.VISIBLE
         homeViewModel.inspeksiPiket(member.id,object : DataSource.InspeksiPiketCallback {
             override fun onSuccess(data : ModelItem) {
-                onRefresh()
-                loadingView.visibility = View.INVISIBLE
-                btn.text = resources.getString(R.string.selesai)
+//                onRefresh()
+                loadingView.visibility = View.GONE
+                btn.visibility = View.GONE
+                checklist.visibility = View.VISIBLE
             }
 
             override fun onFailure(message: String) {
                 loadingView.visibility = View.INVISIBLE
+                btn.isClickable = true
                 Utils.showToast(this@HomeActivity,"Gagal",800)
                 btn.text = resources.getString(R.string.selesai)
             }
