@@ -49,7 +49,7 @@ class CreatePassFragment : Fragment(), DataSource.LoginCallback {
         super.onActivityCreated(savedInstanceState)
         loginViewModel = ViewModelProviders.of(activity!!).get(LoginViewModel::class.java)
         tv_entered_nim.text = loginViewModel.nim
-        btn_create_password.setOnClickListener { clickLogin() }
+        btn_create_password.setOnClickListener { clickCreatePassword() }
         edt_pass.addTextChangedListener { passTextChangedListener() }
         edt_repass.addTextChangedListener { repassTextChangedListener() }
         Glide.with(requireContext())
@@ -57,40 +57,43 @@ class CreatePassFragment : Fragment(), DataSource.LoginCallback {
             .into(iv_loading)
     }
 
-    private fun clickLogin() {
+    private fun clickCreatePassword() {
         if (edt_layout_pass.error == null && edt_layout_repass.error == null) {
             if (edt_pass.text.toString() == edt_repass.text.toString()) {
-                loginViewModel.password = edt_pass.text.toString()
-                loginViewModel.addPassword(this)
-                btn_create_password_loading.visibility = View.VISIBLE
+                val password = edt_pass.text.toString()
+                loginViewModel.addPassword(password, this)
+                btn_create_password.isClickable = false
+                btn_create_password.text = ""
                 iv_loading.visibility = View.VISIBLE
-            } else edt_layout_repass.error = "harus sama"
+            } else edt_layout_repass.error = "Password tidak cocok"
         }
 
     }
 
     private fun passTextChangedListener() {
         if (edt_pass.text.toString().isEmpty()) {
-            edt_layout_pass.error = "ga boleh kosong"
+            edt_layout_pass.error = "Pasword tidak boleh kosong"
         } else edt_layout_pass.error = null
     }
 
     private fun repassTextChangedListener() {
         if (edt_repass.text.toString().isEmpty()) {
-            edt_layout_repass.error = "ga boleh kosong"
+            edt_layout_repass.error = "Masukkan kembali password"
         } else edt_layout_repass.error = null
     }
 
     override fun onSuccess(response: ResponseLogin) {
-        btn_create_password_loading.visibility = View.VISIBLE
-        iv_loading.visibility = View.VISIBLE
+        iv_loading.visibility = View.INVISIBLE
+        btn_create_password.text = resources.getString(R.string.buat_password)
+        btn_create_password.isClickable = false
         loginActivityCallback.successLogin()
     }
 
-    override fun onFaillure(message: String) {
-        btn_create_password_loading.visibility = View.VISIBLE
-        iv_loading.visibility = View.VISIBLE
-        Utils.showToast(requireContext(),message,500)
+    override fun onFailure(message: String) {
+        iv_loading.visibility = View.INVISIBLE
+        btn_create_password.text = resources.getString(R.string.buat_password)
+        btn_create_password.isClickable = false
+        Utils.showToast(requireContext(), "Gagal memuat", 500)
     }
 
 }

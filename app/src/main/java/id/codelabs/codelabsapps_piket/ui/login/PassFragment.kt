@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 
 import id.codelabs.codelabsapps_piket.R
+import id.codelabs.codelabsapps_piket.Utils
 import id.codelabs.codelabsapps_piket.data.DataSource
 import id.codelabs.codelabsapps_piket.model.ResponseLogin
 import kotlinx.android.synthetic.main.fragment_pass.*
@@ -19,12 +20,12 @@ import kotlinx.android.synthetic.main.fragment_pass.*
 /**
  * A simple [Fragment] subclass.
  */
-class PassFragment : Fragment(), DataSource.LoginCallback  {
+class PassFragment : Fragment(), DataSource.LoginCallback {
 
     private lateinit var loginViewModel: LoginViewModel
     private lateinit var loginActivityCallback: LoginActivityCallback
 
-    companion object{
+    companion object {
         val tag = PassFragment::class.java.simpleName
     }
 
@@ -52,31 +53,37 @@ class PassFragment : Fragment(), DataSource.LoginCallback  {
             .into(iv_loading)
     }
 
-    private fun clickLogin(){
-        if(edt_layout_pass.error == null){
-            loginViewModel.password = edt_pass.text.toString()
-            loginViewModel.login(this)
-            btn_login_loading.visibility =View.VISIBLE
+    private fun clickLogin() {
+        if (edt_layout_pass.error == null) {
+            val password = edt_pass.text.toString()
+            loginViewModel.login(password, this)
+            btn_login.isClickable = false
+            btn_login.text = ""
             iv_loading.visibility = View.VISIBLE
         }
     }
 
-    private fun textChangeListener(){
-        if (edt_pass.text.toString().isEmpty()){
-            edt_layout_pass.error = "gaboleh kosong"
-        }else edt_layout_pass.error = null
+    private fun textChangeListener() {
+        if (edt_pass.text.toString().isEmpty()) {
+            edt_layout_pass.error = "Password tidak boleh kosong"
+        } else edt_layout_pass.error = null
     }
 
-    override fun onSuccess(response : ResponseLogin) {
-        btn_login_loading.visibility = View.INVISIBLE
+    override fun onSuccess(response: ResponseLogin) {
         iv_loading.visibility = View.INVISIBLE
+        btn_login.isClickable = true
+        btn_login.text = resources.getString(R.string.masuk)
         loginActivityCallback.successLogin()
     }
 
-    override fun onFaillure(message: String) {
-        btn_login_loading.visibility =View.INVISIBLE
+    override fun onFailure(message: String) {
         iv_loading.visibility = View.INVISIBLE
-        edt_layout_pass.error="password salah"
+        btn_login.isClickable = true
+        btn_login.text = resources.getString(R.string.masuk)
+        if (message == LoginActivity.WRONG_PASSWORD) {
+            edt_layout_pass.error = "Password salah"
+        }
+        Utils.showToast(requireContext(), "Gagal memuat", 500)
     }
 
 }

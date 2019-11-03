@@ -4,13 +4,16 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class ResponseLogin(
-    @Expose
+
     @SerializedName("status")
+    @Expose
     var status : Int,
-    @Expose
+
     @SerializedName("message")
-    var message : String,
     @Expose
+    var message : String,
+
     @SerializedName("data")
+    @Expose
     var data : ResponseData
 )

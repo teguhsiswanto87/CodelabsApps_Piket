@@ -12,20 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Piket">
         <activity
-            android:name=".home.HomeActivity"
+            android:name="id.codelabs.codelabsapps_piket.ui.home.HomeActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.Piket.Home"></activity>
         <activity
             android:name=".ui.login.LoginActivity"
-            android:theme="@style/Theme.Piket.LoginScreen"
+            android:screenOrientation="portrait"
             android:excludeFromRecents="true"
-            android:noHistory="true"/>
+            android:noHistory="true"
+            android:theme="@style/Theme.Piket.LoginScreen" />
         <activity
             android:name=".ui.splash.SplashActivity"
-            android:theme="@style/Theme.Piket.SplashScreen"
-            >
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Piket.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -6,8 +6,8 @@
     <string name="nim">NIM</string>
     <string name="password">Password</string>
     <string name="selanjutnya">Selanjutnya</string>
-    <string name="piket_hari_ini">Piket Hari Ini</string>
-    <string name="udah_piket">Udah Piket</string>
+    <string name="piket">Piket</string>
+    <string name="sudah_piket">Sudah Piket</string>
     <string name="belum_piket">Belum Piket</string>
     <string name="codelabs_small_green">Codelabs Small Green</string>
     <string name="example_nim">10118371</string>
@@ -19,4 +19,7 @@
     <string name="andri">Andri</string>
     <string name="sedot_debu">Sedot Debu</string>
     <string name="selesai">Selesai</string>
+    <string name="failed">Failed</string>
+    <string name="empty">Empty List</string>
+    <string name="re_enter_password">Re-enter password</string>
 </resources>

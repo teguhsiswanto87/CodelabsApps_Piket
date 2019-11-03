@@ -4,80 +4,180 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".home.HomeActivity">
+    tools:context=".ui.home.HomeActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/day_date_picker_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/white"
         android:elevation="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <com.harrywhewell.scrolldatepicker.DayScrollDatePicker
-            android:id="@+id/day_date_picker"
-            style="@style/Widget.Piket.Toolbar"
+        <TextView
+            android:id="@+id/tv_full_selected_date"
+            style="@style/Theme.Piket.SelectedFullDate"
             android:layout_width="match_parent"
-            android:layout_height="120dp" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="16dp"
+            android:paddingHorizontal="16dp"
+            android:text="Oct, Hari ini" />
+
+        <include layout="@layout/days_table_layout" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_date_picker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_date_picker" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/srl_home"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day_date_picker_layout">
+        app:layout_constraintTop_toBottomOf="@+id/day_date_picker_layout"
+        >
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:orientation="vertical">
+            >
 
-            <TextView
-                style="@style/Theme.Piket.ListTitle"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:text="@string/piket_hari_ini" />
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:nestedScrollingEnabled="false" />
+                <TextView
+                    style="@style/Theme.Piket.ListTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/piket" />
 
-            <TextView
-                style="@style/Theme.Piket.ListTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/udah_piket" />
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:nestedScrollingEnabled="false" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_piket"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        tools:listitem="@layout/item_piket"
+                        android:nestedScrollingEnabled="false" />
 
-            <TextView
-                style="@style/Theme.Piket.ListTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:text="@string/belum_piket" />
+                    <ImageView
+                        android:id="@+id/iv_loading_rv_piket"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/circle_green"
+                        android:layout_margin="60dp"
+                        android:visibility="gone" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:nestedScrollingEnabled="false" />
-        </LinearLayout>
+                    <TextView
+                        android:id="@+id/tv_information_piket_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/empty"
+                        android:visibility="invisible" />
+                </FrameLayout>
+
+                <TextView
+                    style="@style/Theme.Piket.ListTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/sudah_piket" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_sudah_piket"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        tools:listitem="@layout/item_sudah_piket"
+                        android:nestedScrollingEnabled="false" />
+
+                    <ImageView
+                        android:id="@+id/iv_loading_rv_sudah_piket"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:src="@drawable/circle_green"
+                        android:layout_margin="60dp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_information_sudah_piket_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/empty"
+                        android:visibility="invisible" />
+                </FrameLayout>
 
 
-    </androidx.core.widget.NestedScrollView>
+                <TextView
+                    style="@style/Theme.Piket.ListTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/belum_piket" />
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_belum_piket"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp"
+                        tools:listitem="@layout/item_belum_piket"
+                        android:nestedScrollingEnabled="false" />
+
+                    <ImageView
+                        android:id="@+id/iv_loading_rv_belum_piket"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="60dp"
+                        android:src="@drawable/circle_green"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tv_information_belum_piket_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/empty"
+                        android:visibility="invisible" />
+                </FrameLayout>
+
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

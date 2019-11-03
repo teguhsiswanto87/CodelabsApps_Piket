@@ -8,4 +8,7 @@
     <color name="loginPageBackgroundColor">#FFFFFF</color>
     <color name="homeBackgroundColor">#FFFFFF</color>
     <color name="textInputOutlineColor">#47AB8A</color>
+    <color name="black">#000000</color>
+    <color name="datePickerNumber">#AD505050</color>
+    <color name="blue">#1d7cdb</color>
 </resources>

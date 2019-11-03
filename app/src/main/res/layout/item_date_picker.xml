@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TableRow>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_d1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/tv_c1"
+                style="@style/Theme.Piket.Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/today_marker1"
+                android:layout_width="14dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rounded_blue"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_c1"
+                app:layout_constraintStart_toStartOf="@+id/tv_c1"
+                app:layout_constraintTop_toBottomOf="@+id/tv_c1"
+                />
+
+            <ImageView
+                android:id="@+id/iv_marker1"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/circle_green"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_c1"
+                app:layout_constraintStart_toStartOf="@+id/tv_c1"
+                app:layout_constraintTop_toBottomOf="@+id/tv_c1" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_d2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/tv_c2"
+                style="@style/Theme.Piket.Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:layout_width="14dp"
+                android:id="@+id/today_marker2"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rounded_blue"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_c2"
+                app:layout_constraintStart_toStartOf="@+id/tv_c2"
+                app:layout_constraintTop_toBottomOf="@+id/tv_c2"
+                />
+
+            <ImageView
+                android:id="@+id/iv_marker2"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/circle_green"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_c2"
+                app:layout_constraintStart_toStartOf="@+id/tv_c2"
+                app:layout_constraintTop_toBottomOf="@+id/tv_c2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="0dp"
+            android:id="@+id/ll_d3"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                style="@style/Theme.Piket.Date"
+                android:id="@+id/tv_c3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/today_marker3"
+                android:layout_width="14dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rounded_blue"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_c3"
+                app:layout_constraintStart_toStartOf="@+id/tv_c3"
+                app:layout_constraintTop_toBottomOf="@+id/tv_c3"
+                />
+
+            <ImageView
+                android:id="@+id/iv_marker3"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/circle_green"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_c3"
+                app:layout_constraintStart_toStartOf="@+id/tv_c3"
+                app:layout_constraintTop_toBottomOf="@+id/tv_c3" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_d4"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/tv_c4"
+                style="@style/Theme.Piket.Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/today_marker4"
+                android:layout_width="14dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rounded_blue"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_c4"
+                app:layout_constraintStart_toStartOf="@+id/tv_c4"
+                app:layout_constraintTop_toBottomOf="@+id/tv_c4"
+                />
+
+            <ImageView
+                android:id="@+id/iv_marker4"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/circle_green"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_c4"
+                app:layout_constraintStart_toStartOf="@+id/tv_c4"
+                app:layout_constraintTop_toBottomOf="@+id/tv_c4" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_d5"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/tv_c5"
+                style="@style/Theme.Piket.Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/today_marker5"
+                android:layout_width="14dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rounded_blue"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_c5"
+                app:layout_constraintStart_toStartOf="@+id/tv_c5"
+                app:layout_constraintTop_toBottomOf="@+id/tv_c5"
+                />
+
+            <ImageView
+                android:id="@+id/iv_marker5"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/circle_green"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_c5"
+                app:layout_constraintStart_toStartOf="@+id/tv_c5"
+                app:layout_constraintTop_toBottomOf="@+id/tv_c5" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_d6"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/tv_c6"
+                style="@style/Theme.Piket.Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/today_marker6"
+                android:layout_width="14dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rounded_blue"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_c6"
+                app:layout_constraintStart_toStartOf="@+id/tv_c6"
+                app:layout_constraintTop_toBottomOf="@+id/tv_c6"
+                />
+
+            <ImageView
+                android:id="@+id/iv_marker6"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/circle_green"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_c6"
+                app:layout_constraintStart_toStartOf="@+id/tv_c6"
+                app:layout_constraintTop_toBottomOf="@+id/tv_c6" />7
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_d7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/tv_c7"
+                style="@style/Theme.Piket.Date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="14"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/today_marker7"
+                android:layout_width="14dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_rounded_blue"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_c7"
+                app:layout_constraintStart_toStartOf="@+id/tv_c7"
+                app:layout_constraintTop_toBottomOf="@+id/tv_c7"
+                />
+
+            <ImageView
+                android:id="@+id/iv_marker7"
+                android:layout_width="6dp"
+                android:layout_height="6dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/circle_green"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="@+id/tv_c7"
+                app:layout_constraintStart_toStartOf="@+id/tv_c7"
+                app:layout_constraintTop_toBottomOf="@+id/tv_c7" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+    </TableRow>
+
+
+</TableLayout>

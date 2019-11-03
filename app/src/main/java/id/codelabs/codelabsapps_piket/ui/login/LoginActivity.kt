@@ -3,26 +3,25 @@ package id.codelabs.codelabsapps_piket.ui.login
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
 import id.codelabs.codelabsapps_piket.R
-import id.codelabs.codelabsapps_piket.home.HomeActivity
+import id.codelabs.codelabsapps_piket.ui.home.HomeActivity
 
 
 class LoginActivity : AppCompatActivity(), LoginActivityCallback {
 
     private lateinit var loginViewModel: LoginViewModel
-    private var fragment: Fragment? = null
+    private var mFragment: Fragment? = null
     private var tag = ""
     private val ROTATION = "ROTATION"
-    companion object{
-        val HASPASSWORD = "HASPASSWORD"
-        val YETPASSWORD = "YETPASSWORD"
-        val NOTFOUNDNIM = "NOTFOUNDNIM"
-        val SUCCEEDLOGIN = "SUCCESSLOGIN"
-        val WRONGPASSWORD = "WRONGPASSWORD"
-        val PASSWORDADDED = "PASSWORDADDED"
+
+    companion object {
+        const val HAS_PASSWORD = "HAS_PASSWORD"
+        const val YET_PASSWORD = "YET_PASSWORD"
+        const val NOT_FOUND_NIM = "NOT_FOUND_NIM"
+        const val WRONG_PASSWORD = "WRONG_PASSWORD"
+        const val PASSWORD_ADDED = "PASSWORD_ADDED"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,12 +31,12 @@ class LoginActivity : AppCompatActivity(), LoginActivityCallback {
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel::class.java)
         loginViewModel.loginActivity = this
 
-        if (savedInstanceState == null){
-            fragment = NimFragment()
+        if (savedInstanceState == null) {
+            mFragment = NimFragment()
             tag = NimFragment.tag
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container_login, fragment!!,tag)
+                .replace(R.id.container_login, mFragment!!, tag)
                 .commit()
         }
     }
@@ -46,19 +45,19 @@ class LoginActivity : AppCompatActivity(), LoginActivityCallback {
 
         when (to) {
             loginViewModel.PASS_STATE -> {
-                fragment = PassFragment()
+                mFragment = PassFragment()
                 tag = PassFragment.tag
             }
             loginViewModel.CREATE_PASS_STATE -> {
-                fragment = CreatePassFragment()
+                mFragment = CreatePassFragment()
                 tag = CreatePassFragment.tag
             }
         }
 
-        if (fragment != null) {
+        if (mFragment != null) {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container_login, fragment!!,tag)
+                .replace(R.id.container_login, mFragment!!, tag)
                 .addToBackStack(tag)
                 .commit()
         }
@@ -76,7 +75,7 @@ class LoginActivity : AppCompatActivity(), LoginActivityCallback {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(ROTATION,ROTATION)
+        outState.putString(ROTATION, ROTATION)
     }
 
 }

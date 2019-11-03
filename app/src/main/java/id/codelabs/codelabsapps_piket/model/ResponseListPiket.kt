@@ -3,14 +3,18 @@ package id.codelabs.codelabsapps_piket.model
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class ResponseAddPassword(
+data class ResponseListPiket(
 
     @SerializedName("status")
     @Expose
-    var status: Int,
+    var status: String,
 
     @SerializedName("message")
     @Expose
-    var message: String
+    var message: String,
+
+    @SerializedName("data")
+    @Expose
+    var data: List<ModelItem>
 
 )

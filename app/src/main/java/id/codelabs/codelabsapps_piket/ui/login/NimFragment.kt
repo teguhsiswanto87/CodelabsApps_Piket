@@ -14,13 +14,9 @@ import com.bumptech.glide.Glide
 import id.codelabs.codelabsapps_piket.R
 import id.codelabs.codelabsapps_piket.Utils
 import id.codelabs.codelabsapps_piket.data.DataSource
-import kotlinx.android.synthetic.main.fragment_create_pass.*
 import kotlinx.android.synthetic.main.fragment_nim.*
 import kotlinx.android.synthetic.main.fragment_nim.iv_loading
 
-/**
- * A simple [Fragment] subclass.
- */
 class NimFragment : Fragment(), DataSource.CheckHasPasswordCallback {
 
 
@@ -35,7 +31,6 @@ class NimFragment : Fragment(), DataSource.CheckHasPasswordCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_nim, container, false)
     }
 
@@ -47,45 +42,48 @@ class NimFragment : Fragment(), DataSource.CheckHasPasswordCallback {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         loginViewModel = ViewModelProviders.of(activity!!).get(LoginViewModel::class.java)
-//        edt_nim.se = loginViewModel.nim.
         btn_next.setOnClickListener { clickNext() }
-        edt_nim.addTextChangedListener {textChangedListener()}
+        edt_nim.addTextChangedListener { textChangedListener() }
         Glide.with(requireContext())
             .load(R.drawable.loading)
             .into(iv_loading)
     }
 
     private fun clickNext() {
-        if (edt_layout_nim.error == null){
-            loginViewModel.nim = edt_nim.text.toString()
-            loginViewModel.checkHasPassword(this)
-            btn_login_loading.visibility =View.VISIBLE
+        if (edt_layout_nim.error == null) {
+            val nim = edt_nim.text.toString()
+            loginViewModel.checkHasPassword(nim,this)
+            btn_next.text = ""
+            btn_next.isClickable = false
             iv_loading.visibility = View.VISIBLE
+
         }
     }
 
-    private fun textChangedListener(){
+    private fun textChangedListener() {
         if (edt_nim.text.toString().isEmpty()) {
-            edt_layout_nim.error = "ga boleh kosong"
-        }else {
+            edt_layout_nim.error = "NIM tidak boleh kosong"
+        } else {
             edt_layout_nim.error = null
         }
     }
 
     override fun onSuccess(message: String) {
-        btn_login_loading.visibility =View.INVISIBLE
         iv_loading.visibility = View.INVISIBLE
-        when (message){
-            LoginActivity.HASPASSWORD -> loginActivityCallback.moveNext(loginViewModel.PASS_STATE)
-            LoginActivity.YETPASSWORD -> loginActivityCallback.moveNext(loginViewModel.CREATE_PASS_STATE)
-            LoginActivity.NOTFOUNDNIM -> edt_layout_nim.error = "nim not found"
+        btn_next.text = resources.getString(R.string.selanjutnya)
+        btn_next.isClickable = true
+        when (message) {
+            LoginActivity.HAS_PASSWORD -> loginActivityCallback.moveNext(loginViewModel.PASS_STATE)
+            LoginActivity.YET_PASSWORD -> loginActivityCallback.moveNext(loginViewModel.CREATE_PASS_STATE)
+            LoginActivity.NOT_FOUND_NIM -> edt_layout_nim.error = "NIM tidak di temukan"
         }
     }
 
     override fun onFailure(message: String) {
-        btn_create_password_loading.visibility = View.VISIBLE
         iv_loading.visibility = View.VISIBLE
-        Utils.showToast(requireContext(),message,500)
+        btn_next.text = resources.getString(R.string.selanjutnya)
+        btn_next.isClickable = true
+        Utils.showToast(requireContext(), "Gagal memuat", 500)
     }
 
 
