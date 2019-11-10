@@ -47,9 +47,9 @@ class LoginViewModel : ViewModel() {
                 Utils.putSharedPreferences(Utils.SAVED_PASSWORD, password)
                 Utils.putSharedPreferences(Utils.SAVED_TOKEN, token)
 
-                Log.d("{devbacot}prev : ", Utils.getSharedPreferences(
+                Log.d("devbct pref : ", Utils.getSharedPreferences(
                     Utils.SAVED_NIM)!!)
-                Log.d("{devbacot}prev : ", Utils.getSharedPreferences(
+                Log.d("devbct pref : ", Utils.getSharedPreferences(
                     Utils.SAVED_PASSWORD)!!)
 
                 callback.onSuccess(response)

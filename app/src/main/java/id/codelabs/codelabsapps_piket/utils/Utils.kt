@@ -25,12 +25,14 @@ class Utils {
             prefs = activity.getSharedPreferences(
                 MY_PREFS_NAME, Context.MODE_PRIVATE
             )
+            prefs.edit().apply()
             prefs.edit().commit()
         }
 
         fun putSharedPreferences(key: String, value: String) {
             var editPref = prefs.edit()
             editPref.putString(key, value)
+            editPref.apply()
             editPref.commit()
         }
 

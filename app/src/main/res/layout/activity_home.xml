@@ -23,8 +23,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="16dp"
-            android:paddingHorizontal="16dp"
-            android:text="Oct, Hari ini" />
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:text="Hari ini" />
 
         <include layout="@layout/days_table_layout" />
 
@@ -80,15 +81,6 @@
                         tools:listitem="@layout/item_piket"
                         android:nestedScrollingEnabled="false" />
 
-                    <ImageView
-                        android:id="@+id/iv_loading_rv_piket"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/circle_green"
-                        android:layout_margin="60dp"
-                        android:visibility="gone" />
-
                     <TextView
                         android:id="@+id/tv_information_piket_list"
                         android:layout_width="match_parent"
@@ -119,14 +111,6 @@
                         tools:listitem="@layout/item_sudah_piket"
                         android:nestedScrollingEnabled="false" />
 
-                    <ImageView
-                        android:id="@+id/iv_loading_rv_sudah_piket"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:src="@drawable/circle_green"
-                        android:layout_margin="60dp"
-                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tv_information_sudah_piket_list"
@@ -158,15 +142,6 @@
                         android:layout_marginBottom="24dp"
                         tools:listitem="@layout/item_belum_piket"
                         android:nestedScrollingEnabled="false" />
-
-                    <ImageView
-                        android:id="@+id/iv_loading_rv_belum_piket"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center_horizontal"
-                        android:layout_margin="60dp"
-                        android:src="@drawable/circle_green"
-                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/tv_information_belum_piket_list"

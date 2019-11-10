@@ -25,6 +25,7 @@ class DatePickerAdapter(
     private var listDatePicker = CustomDatePickerUtils.generateDate(calendar, numberOfWeek)
 
     var isClickable = true
+    lateinit var todayTV : TextView
 
     init {
         recyclerView.layoutManager = LinearLayoutManager(context, RecyclerView.HORIZONTAL, false)
@@ -123,37 +124,51 @@ class DatePickerAdapter(
         if (CustomDatePickerUtils.selectedDateMarker == null) {
             when (calendar.get(Calendar.DAY_OF_WEEK)) {
                 1 -> {
+                    todayTV = holder.tvC7
                     changeSelectedItem(holder.tvC7, holder.ivMarker7)
                     holder.todayMarker7.visibility = View.VISIBLE
+                    holder.tvC7.setTextColor(context.resources.getColor(R.color.white) )
                 }
                 2 -> {
+                    todayTV = holder.tvC1
                     changeSelectedItem(holder.tvC1, holder.ivMarker1)
                     holder.todayMarker1.visibility = View.VISIBLE
+                    holder.tvC1.setTextColor(context.resources.getColor(R.color.white) )
                 }
 
                 3 -> {
+                    todayTV = holder.tvC2
                     changeSelectedItem(holder.tvC2, holder.ivMarker2)
                     holder.todayMarker2.visibility = View.VISIBLE
+                    holder.tvC2.setTextColor(context.resources.getColor(R.color.white) )
                 }
 
                 4 -> {
+                    todayTV = holder.tvC3
                     changeSelectedItem(holder.tvC3, holder.ivMarker3)
                     holder.todayMarker3.visibility = View.VISIBLE
+                    holder.tvC3.setTextColor(context.resources.getColor(R.color.white) )
                 }
 
                 5 -> {
+                    todayTV = holder.tvC4
                     changeSelectedItem(holder.tvC4, holder.ivMarker4)
                     holder.todayMarker4.visibility = View.VISIBLE
+                    holder.tvC4.setTextColor(context.resources.getColor(R.color.white) )
                 }
 
                 6 -> {
+                    todayTV = holder.tvC5
                     changeSelectedItem(holder.tvC5, holder.ivMarker5)
                     holder.todayMarker5.visibility = View.VISIBLE
+                    holder.tvC5.setTextColor(context.resources.getColor(R.color.white) )
                 }
 
                 7 -> {
+                    todayTV = holder.tvC6
                     changeSelectedItem(holder.tvC6, holder.ivMarker6)
                     holder.todayMarker6.visibility = View.VISIBLE
+                    holder.tvC6.setTextColor(context.resources.getColor(R.color.white) )
                 }
 
             }
@@ -172,6 +187,7 @@ class DatePickerAdapter(
 
     private fun selectSelectedItem() {
         if (CustomDatePickerUtils.selectedDateTextView != null && CustomDatePickerUtils.selectedDateMarker != null) {
+            if ( CustomDatePickerUtils.selectedDateTextView != todayTV)
             CustomDatePickerUtils.selectedDateTextView!!.setTextColor(context.resources.getColor(R.color.colorPrimaryDark))
             CustomDatePickerUtils.selectedDateMarker!!.visibility = View.VISIBLE
         }
@@ -179,6 +195,7 @@ class DatePickerAdapter(
 
     private fun unselectSelectedItem() {
         if (CustomDatePickerUtils.selectedDateTextView != null && CustomDatePickerUtils.selectedDateMarker != null) {
+            if ( CustomDatePickerUtils.selectedDateTextView != todayTV)
             CustomDatePickerUtils.selectedDateTextView!!.setTextColor(context.resources.getColor(R.color.datePickerNumber))
             CustomDatePickerUtils.selectedDateMarker!!.visibility = View.INVISIBLE
         }

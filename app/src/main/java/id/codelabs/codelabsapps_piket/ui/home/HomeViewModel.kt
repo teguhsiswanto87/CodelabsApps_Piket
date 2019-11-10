@@ -23,6 +23,7 @@ class HomeViewModel : ViewModel() {
     lateinit var homeActivity : HomeActivity
     var loadingPiketListStatus = false
     var loadingSudahPiketListStatus = false
+    var loadingBelumPiketStatus = false
 
 
     fun getPiketList(date: String, callback: DataSource.GetPiketCallback) {
@@ -77,13 +78,16 @@ class HomeViewModel : ViewModel() {
 
     fun getBelumPiketList(callback: DataSource.GetBelumPiketCallback) {
         if(belumPiketList.isEmpty()){
+            loadingBelumPiketStatus = true
             dataSource.getBelumPiket(object : DataSource.GetBelumPiketCallback {
                 override fun onSuccess(list: List<ModelItem>) {
                     belumPiketList.clear()
                     belumPiketList.addAll(list)
+                    loadingBelumPiketStatus = false
                     callback.onSuccess(list)
                 }
                 override fun onFailure(message: String) {
+                    loadingBelumPiketStatus = false
                     callback.onFailure(message)
                 }
 

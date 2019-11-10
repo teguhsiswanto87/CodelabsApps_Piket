@@ -1,28 +1,26 @@
 package id.codelabs.codelabsapps_piket.ui.home
 
 import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.bumptech.glide.Glide
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import id.codelabs.codelabsapps_piket.R
-import id.codelabs.codelabsapps_piket.utils.AlertDialogResultListener
-import id.codelabs.codelabsapps_piket.utils.Utils
 import id.codelabs.codelabsapps_piket.data.DataSource
 import id.codelabs.codelabsapps_piket.model.ModelItem
 import id.codelabs.codelabsapps_piket.ui.home.customDatePicker.DatePickerAdapter
 import id.codelabs.codelabsapps_piket.ui.home.customDatePicker.OnClickItemCustomDatePickerListener
+import id.codelabs.codelabsapps_piket.utils.AlertDialogResultListener
+import id.codelabs.codelabsapps_piket.utils.Utils
 import kotlinx.android.synthetic.main.activity_home.*
-import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 import java.util.*
-import kotlin.collections.ArrayList
 
 class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
     PiketAdapter.OnClickButtonItemPiketListListener,
@@ -40,18 +38,7 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
         setContentView(R.layout.activity_home)
         Utils.makeSharedPreferences(this)
 
-        Glide.with(this)
-            .load(R.drawable.loading_green)
-            .into(iv_loading_rv_piket)
-        Glide.with(this)
-            .load(R.drawable.loading_green)
-            .into(iv_loading_rv_sudah_piket)
-        Glide.with(this)
-            .load(R.drawable.loading_green)
-            .into(iv_loading_rv_belum_piket)
-
         srl_home.setOnRefreshListener {
-            srl_home.isRefreshing = false
             onRefresh()
         }
 
@@ -74,13 +61,19 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
         prepareSudahPiketList()
         prepareBelumPiketList()
 
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    Log.w("devbct fcmToken", "getInstanceId failed", task.exception)
+                    return@OnCompleteListener
+                }
+                val token = task.result?.token
 
-        val fcmToken = FirebaseInstanceId.getInstance().token
-        if (fcmToken!!.isNotEmpty()) {
-            homeViewModel.updateFCMToken(fcmToken, updateFCMTokenCallback)
-            Log.d("{devbacot}fcmToken : ", fcmToken)
-        }
-
+                if (token!!.isNotEmpty()) {
+                    homeViewModel.updateFCMToken(token, updateFCMTokenCallback)
+                    Log.d("devbct fcmToken", token)
+                }
+            })
 
     }
 
@@ -98,14 +91,13 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
 
     private fun getItemPiketList(date: String) {
         datePickerAdapter.isClickable = false
-        iv_loading_rv_piket.visibility = View.VISIBLE
+        srl_home.isRefreshing = true
         tv_information_piket_list.visibility = View.INVISIBLE
         homeViewModel.getPiketList(date, getPiketCallback)
     }
 
     private val getPiketCallback = object : DataSource.GetPiketCallback {
         override fun onSuccess(list: List<ModelItem>) {
-            iv_loading_rv_piket.visibility = View.GONE
             piketAdapter.list.clear()
 
             if (list.isNotEmpty()) {
@@ -117,21 +109,22 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
             rv_piket.adapter = piketAdapter
             piketAdapter.notifyDataSetChanged()
 
-            if (!homeViewModel.loadingPiketListStatus && !homeViewModel.loadingSudahPiketListStatus) {
+            if (!homeViewModel.loadingPiketListStatus && !homeViewModel.loadingSudahPiketListStatus && !homeViewModel.loadingBelumPiketStatus) {
                 datePickerAdapter.isClickable = true
+                srl_home.isRefreshing = false
             }
         }
 
         override fun onFailure(message: String) {
-            iv_loading_rv_piket.visibility = View.GONE
             piketAdapter.list.clear()
             rv_piket.adapter = piketAdapter
             piketAdapter.notifyDataSetChanged()
             tv_information_piket_list.setText(R.string.failed)
             tv_information_piket_list.visibility = View.VISIBLE
 
-            if (!homeViewModel.loadingPiketListStatus && !homeViewModel.loadingSudahPiketListStatus) {
+            if (!homeViewModel.loadingPiketListStatus && !homeViewModel.loadingSudahPiketListStatus && !homeViewModel.loadingBelumPiketStatus) {
                 datePickerAdapter.isClickable = true
+                srl_home.isRefreshing = false
             }
         }
     }
@@ -146,14 +139,12 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
 
     private fun getItemSudahPiketList(date: String) {
         datePickerAdapter.isClickable = false
-        iv_loading_rv_sudah_piket.visibility = View.VISIBLE
         tv_information_sudah_piket_list.visibility = View.INVISIBLE
         homeViewModel.getSudahPiketList(date, getSudahPiketCallback)
     }
 
     private val getSudahPiketCallback = object : DataSource.GetSudahPiketCallback {
         override fun onSuccess(list: List<ModelItem>) {
-            iv_loading_rv_sudah_piket.visibility = View.GONE
             sudahPiketAdapter.list.clear()
 
             if (list.isNotEmpty()) {
@@ -165,21 +156,22 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
             rv_sudah_piket.adapter = sudahPiketAdapter
             sudahPiketAdapter.notifyDataSetChanged()
 
-            if (!homeViewModel.loadingPiketListStatus && !homeViewModel.loadingSudahPiketListStatus) {
+            if (!homeViewModel.loadingPiketListStatus && !homeViewModel.loadingSudahPiketListStatus && !homeViewModel.loadingBelumPiketStatus) {
                 datePickerAdapter.isClickable = true
+                srl_home.isRefreshing = false
             }
         }
 
         override fun onFailure(message: String) {
-            iv_loading_rv_sudah_piket.visibility = View.GONE
             sudahPiketAdapter.list.clear()
             rv_sudah_piket.adapter = sudahPiketAdapter
             sudahPiketAdapter.notifyDataSetChanged()
             tv_information_sudah_piket_list.setText(R.string.failed)
             tv_information_sudah_piket_list.visibility = View.VISIBLE
 
-            if (!homeViewModel.loadingPiketListStatus && !homeViewModel.loadingSudahPiketListStatus) {
+            if (!homeViewModel.loadingPiketListStatus && !homeViewModel.loadingSudahPiketListStatus && !homeViewModel.loadingBelumPiketStatus) {
                 datePickerAdapter.isClickable = true
+                srl_home.isRefreshing = false
             }
         }
     }
@@ -193,7 +185,6 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
     }
 
     private fun getItemBelumPiketList() {
-        iv_loading_rv_belum_piket.visibility = View.VISIBLE
         tv_information_belum_piket_list.visibility = View.INVISIBLE
         homeViewModel.getBelumPiketList(getBelumPiketCallback)
 
@@ -201,7 +192,6 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
 
     private val getBelumPiketCallback = object : DataSource.GetBelumPiketCallback {
         override fun onSuccess(list: List<ModelItem>) {
-            iv_loading_rv_belum_piket.visibility = View.GONE
             belumPiketAdapter.list.clear()
             if (list.isNotEmpty()) {
                 belumPiketAdapter.list.addAll(list)
@@ -211,15 +201,23 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
             }
             rv_belum_piket.adapter = belumPiketAdapter
             belumPiketAdapter.notifyDataSetChanged()
+            if (!homeViewModel.loadingPiketListStatus && !homeViewModel.loadingSudahPiketListStatus && !homeViewModel.loadingBelumPiketStatus) {
+                datePickerAdapter.isClickable = true
+                srl_home.isRefreshing = false
+            }
         }
 
         override fun onFailure(message: String) {
-            iv_loading_rv_belum_piket.visibility = View.GONE
             rv_belum_piket.adapter = belumPiketAdapter
             belumPiketAdapter.notifyDataSetChanged()
             belumPiketAdapter.list.clear()
             tv_information_belum_piket_list.setText(R.string.failed)
             tv_information_belum_piket_list.visibility = View.VISIBLE
+
+            if (!homeViewModel.loadingPiketListStatus && !homeViewModel.loadingSudahPiketListStatus && !homeViewModel.loadingBelumPiketStatus) {
+                datePickerAdapter.isClickable = true
+                srl_home.isRefreshing = false
+            }
         }
     }
 
@@ -272,12 +270,12 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
 
     private val updateFCMTokenCallback = object : DataSource.UpdateFCMTokenCallback {
         override fun onSuccess() {
-            Log.d("{devbacot}fcmToken : ", "success update fcm token")
+            Log.d("devbacot fcmToken", "success update fcm token")
         }
 
         override fun onFailure(message: String) {
-            Log.d("{devbacot}fcmToken : ", "failed update fcm token")
-            Log.d("{devbacot}fcmToken : ", message)
+            Log.d("devbacotf cmToken", "failed update fcm token")
+            Log.d("devbacot fcmToken", message)
         }
 
     }

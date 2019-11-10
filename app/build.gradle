@@ -65,6 +65,8 @@ dependencies {
 
 //    "https://firebase.google.com/docs/android/setup#available-libraries"
     implementation 'com.google.firebase:firebase-core:17.0.0'
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
+
 
 }
 
