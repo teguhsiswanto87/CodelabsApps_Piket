@@ -245,6 +245,7 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
             && (date1[1].toInt() == date2[1].toInt())
             && (date1[2].toInt() == date2[2].toInt())
         ) {
+            strBuilder.clear()
             strBuilder.append("Hari Ini")
         } else {
             strBuilder.append(date.split("-")[2])
@@ -270,12 +271,12 @@ class HomeActivity : AppCompatActivity(), OnClickItemCustomDatePickerListener,
 
     private val updateFCMTokenCallback = object : DataSource.UpdateFCMTokenCallback {
         override fun onSuccess() {
-            Log.d("devbacot fcmToken", "success update fcm token")
+            Log.d("devbct fcmToken", "success update fcm token")
         }
 
         override fun onFailure(message: String) {
-            Log.d("devbacotf cmToken", "failed update fcm token")
-            Log.d("devbacot fcmToken", message)
+            Log.d("devbct fcmToken", "failed update fcm token")
+            Log.d("devbct fcmToken", message)
         }
 
     }

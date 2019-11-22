@@ -11,7 +11,7 @@ class ApiClient {
 
             if (retrofit == null) {
                 retrofit = Retrofit.Builder()
-                    .baseUrl("https://absensi-codelabs.herokuapp.com/")
+                    .baseUrl("http://103.112.189.132:5227/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
             }
@@ -19,3 +19,4 @@ class ApiClient {
         }
     }
 }
+//                    .baseUrl("https://absensi-codelabs.herokuapp.com/")
