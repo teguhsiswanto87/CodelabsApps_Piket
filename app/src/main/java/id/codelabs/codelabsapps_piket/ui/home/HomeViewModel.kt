@@ -16,7 +16,7 @@ class HomeViewModel : ViewModel() {
     var belumPiketList = ArrayList<ModelItem>()
     var cal = Calendar.getInstance()
     @SuppressLint("SimpleDateFormat")
-    val simpleDateFormat = SimpleDateFormat("YYYY-MM-dd")
+    val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
     var currentDate = simpleDateFormat.format(cal.time)
     var selectedDate = ""
     var dateOnPiketList = ""

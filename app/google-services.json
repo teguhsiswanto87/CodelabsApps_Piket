@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "751647583430",
-    "firebase_url": "https://piketapps-mobile.firebaseio.com",
-    "project_id": "piketapps-mobile",
-    "storage_bucket": "piketapps-mobile.appspot.com"
+    "project_number": "1019948999924",
+    "firebase_url": "https://absen-cl-android.firebaseio.com",
+    "project_id": "absen-cl-android",
+    "storage_bucket": "absen-cl-android.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:751647583430:android:95320cee8c5566d74e7bc7",
+        "mobilesdk_app_id": "1:1019948999924:android:57789b44b78cf71b45eaa1",
         "android_client_info": {
           "package_name": "id.codelabs.codelabsapps_piket"
         }
       },
       "oauth_client": [
         {
-          "client_id": "751647583430-taokhcceh6q7skkq8sd38hf9mssnj6mu.apps.googleusercontent.com",
+          "client_id": "1019948999924-bkheb9h3ljhte4ok0ejjbi2hilcnd8ek.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCvIoGJODKrTnQBtobIitdaaS3iD2beVOo"
+          "current_key": "AIzaSyCWPwSAaO8FED7k1O8oVIpfi0Lkb6Rx3wQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "751647583430-taokhcceh6q7skkq8sd38hf9mssnj6mu.apps.googleusercontent.com",
+              "client_id": "1019948999924-bkheb9h3ljhte4ok0ejjbi2hilcnd8ek.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

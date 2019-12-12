@@ -20,7 +20,7 @@ class CustomDatePickerUtils {
         private var listDatePicker: Array<Array<ModelDate>>? = null
         private lateinit var cal: Calendar
         @SuppressLint("SimpleDateFormat")
-        private val simpleDateFormat = SimpleDateFormat("YYYY-MM-dd")
+        private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd")
         private lateinit var currentDate: String
         private lateinit var splitCurrentDate: List<String>
         private var mNumberOfWeeks = 0

@@ -3,6 +3,7 @@ package id.codelabs.codelabsapps_piket.ui.login
 import id.codelabs.codelabsapps_piket.utils.Utils
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -83,10 +84,11 @@ class NimFragment : Fragment(), DataSource.CheckHasPasswordCallback {
     }
 
     override fun onFailure(message: String) {
-        iv_loading.visibility = View.VISIBLE
+        iv_loading.visibility = View.INVISIBLE
         btn_next.text = resources.getString(R.string.selanjutnya)
         btn_next.isClickable = true
-        Utils.showToast(requireContext(), "Gagal memuat", 500)
+        Log.d("devbct",message)
+        Utils.showToast(requireContext(), message, 500)
     }
 
 
