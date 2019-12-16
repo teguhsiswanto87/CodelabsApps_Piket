@@ -12,11 +12,18 @@ import id.codelabs.codelabsapps_piket.R
 import id.codelabs.codelabsapps_piket.utils.Utils
 import id.codelabs.codelabsapps_piket.model.ModelItem
 
-class SudahPiketAdapter(var callback : OnClickButtonItemSudahPiketListListener) : RecyclerView.Adapter<SudahPiketAdapter.PiketViewHolder>(){
+class SudahPiketAdapter(var callback: OnClickButtonItemSudahPiketListListener) :
+    RecyclerView.Adapter<SudahPiketAdapter.PiketViewHolder>() {
     var list = ArrayList<ModelItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PiketViewHolder {
-        return PiketViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_sudah_piket,parent,false))
+        return PiketViewHolder(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_sudah_piket,
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int = list.size
@@ -24,34 +31,52 @@ class SudahPiketAdapter(var callback : OnClickButtonItemSudahPiketListListener) 
     override fun onBindViewHolder(holder: PiketViewHolder, position: Int) {
         holder.name.text = list[position].namaAnggota
         holder.duty.text = list[position].jenisPiket
-        holder.inspectedBy.text = list[position].diperiksaOleh
         Glide.with(holder.itemView.context)
             .load(R.drawable.loading)
             .into(holder.ivLoading)
         holder.btnSelesai.setOnClickListener {
-            callback.onClickButtonSelesaiItemSudahPiket(list[position],holder.ivLoading, holder.btnSelesai,holder.ivChecklist)
+            callback.onClickButtonSelesaiItemSudahPiket(
+                list[position],
+                holder.ivLoading,
+                holder.btnSelesai,
+                holder.ivChecklist
+            )
         }
 
-        if(list[position].nim == Utils.getSharedPreferences(Utils.SAVED_NIM)){
+        if (list[position].nim == Utils.getSharedPreferences(Utils.SAVED_NIM)) {
             holder.btnSelesai.visibility = View.GONE
         }
-        if(!list[position].diperiksaOleh.isNullOrEmpty()){
+        if (!list[position].diperiksaOleh.isNullOrEmpty()) {
             holder.btnSelesai.visibility = View.GONE
             holder.ivChecklist.visibility = View.VISIBLE
         }
+        if (!list[position].diperiksaOleh!!.isEmpty()) {
+            holder.inspectedByName.text = list[position].diperiksaOleh
+        } else {
+            holder.bullet.visibility = View.INVISIBLE
+            holder.inspectedBy.visibility = View.INVISIBLE
+        }
+
     }
 
-    class PiketViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
-        var name : TextView = itemView.findViewById(R.id.tv_nama)
-        var duty : TextView = itemView.findViewById(R.id.tv_duty)
-        var btnSelesai : Button = itemView.findViewById(R.id.btn_selesai)
-        var ivLoading : ImageView = itemView.findViewById(R.id.iv_loading)
-        var ivChecklist : ImageView = itemView.findViewById(R.id.iv_checklist)
-        var inspectedBy: TextView = itemView.findViewById(R.id.tv_inspectedby_name)
+    class PiketViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        var name: TextView = itemView.findViewById(R.id.tv_nama)
+        var duty: TextView = itemView.findViewById(R.id.tv_duty)
+        var btnSelesai: Button = itemView.findViewById(R.id.btn_selesai)
+        var ivLoading: ImageView = itemView.findViewById(R.id.iv_loading)
+        var ivChecklist: ImageView = itemView.findViewById(R.id.iv_checklist)
+        var inspectedByName: TextView = itemView.findViewById(R.id.tv_inspectedby_name)
+        var inspectedBy: TextView = itemView.findViewById(R.id.tv_inspectedby)
+        var bullet: TextView = itemView.findViewById(R.id.tv_bullet)
     }
 
     interface OnClickButtonItemSudahPiketListListener {
-        fun onClickButtonSelesaiItemSudahPiket(member : ModelItem, loadingView : ImageView, btn : Button, checklist : ImageView)
+        fun onClickButtonSelesaiItemSudahPiket(
+            member: ModelItem,
+            loadingView: ImageView,
+            btn: Button,
+            checklist: ImageView
+        )
     }
 
 }
