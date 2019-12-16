@@ -24,6 +24,7 @@ class SudahPiketAdapter(var callback : OnClickButtonItemSudahPiketListListener) 
     override fun onBindViewHolder(holder: PiketViewHolder, position: Int) {
         holder.name.text = list[position].namaAnggota
         holder.duty.text = list[position].jenisPiket
+        holder.inspectedBy.text = list[position].diperiksaOleh
         Glide.with(holder.itemView.context)
             .load(R.drawable.loading)
             .into(holder.ivLoading)
@@ -46,6 +47,7 @@ class SudahPiketAdapter(var callback : OnClickButtonItemSudahPiketListListener) 
         var btnSelesai : Button = itemView.findViewById(R.id.btn_selesai)
         var ivLoading : ImageView = itemView.findViewById(R.id.iv_loading)
         var ivChecklist : ImageView = itemView.findViewById(R.id.iv_checklist)
+        var inspectedBy: TextView = itemView.findViewById(R.id.tv_inspectedby_name)
     }
 
     interface OnClickButtonItemSudahPiketListListener {

@@ -34,6 +34,42 @@
         app:layout_constraintStart_toStartOf="@+id/tv_nama"
         app:layout_constraintTop_toBottomOf="@+id/tv_nama" />
 
+    <TextView
+        android:id="@+id/tv_bullet"
+        style="@style/Theme.Piket.DutyItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="@string/bullet"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_duty"
+        app:layout_constraintStart_toEndOf="@+id/tv_duty"
+        app:layout_constraintTop_toTopOf="@+id/tv_duty" />
+
+    <TextView
+        android:id="@+id/tv_inspectedby"
+        style="@style/Theme.Piket.DutyItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="@string/inspected_by"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_bullet"
+        app:layout_constraintStart_toEndOf="@+id/tv_bullet"
+        app:layout_constraintTop_toTopOf="@+id/tv_bullet" />
+
+    <TextView
+        android:id="@+id/tv_inspectedby_name"
+        style="@style/Theme.Piket.DutyItem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:text="@string/andri"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_inspectedby"
+        app:layout_constraintStart_toEndOf="@+id/tv_inspectedby"
+        app:layout_constraintTop_toTopOf="@+id/tv_inspectedby"
+        app:layout_constraintVertical_bias="0.0" />
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_selesai"
         style="@style/Widget.SudahPiket.Button"
@@ -42,6 +78,7 @@
         android:layout_marginEnd="24dp"
         android:text="@string/selesai"
         android:textSize="13sp"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,8 +87,8 @@
         android:id="@+id/iv_loading"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:visibility="invisible"
         android:elevation="10dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/btn_selesai"
         app:layout_constraintEnd_toEndOf="@+id/btn_selesai"
         app:layout_constraintStart_toStartOf="@+id/btn_selesai"
@@ -59,13 +96,13 @@
 
     <ImageView
         android:id="@+id/iv_checklist"
-        android:src="@drawable/tick"
         android:layout_width="30dp"
         android:layout_height="30sp"
-        android:elevation="30dp"
-        android:visibility="invisible"
-        android:layout_marginEnd="52dp"
+        android:layout_marginEnd="16dp"
         android:alpha="0.65"
+        android:elevation="30dp"
+        android:src="@drawable/tick"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

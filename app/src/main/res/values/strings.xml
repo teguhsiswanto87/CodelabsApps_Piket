@@ -23,4 +23,6 @@
     <string name="re_enter_password">Re-enter password</string>
     <string name="masukkan_password">Masukkan Password</string>
     <string name="notification_channel_description">Piket</string>
+    <string name="bullet">•</string>
+    <string name="inspected_by">Inspected By :</string>
 </resources>

@@ -46,13 +46,11 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/day_date_picker_layout"
-        >
+        app:layout_constraintTop_toBottomOf="@+id/day_date_picker_layout">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -78,17 +76,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="24dp"
-                        tools:listitem="@layout/item_piket"
-                        android:nestedScrollingEnabled="false" />
+                        android:nestedScrollingEnabled="false"
+                        tools:listitem="@layout/item_piket" />
 
                     <TextView
                         android:id="@+id/tv_information_piket_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="32dp"
                         android:gravity="center"
                         android:text="@string/empty"
-                        android:visibility="invisible"
-                        android:layout_marginBottom="32dp"/>
+                        android:visibility="invisible" />
                 </FrameLayout>
 
                 <TextView
@@ -108,18 +106,18 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="24dp"
-                        tools:listitem="@layout/item_sudah_piket"
-                        android:nestedScrollingEnabled="false" />
+                        android:nestedScrollingEnabled="false"
+                        tools:listitem="@layout/item_sudah_piket" />
 
 
                     <TextView
                         android:id="@+id/tv_information_sudah_piket_list"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="32dp"
                         android:gravity="center"
                         android:text="@string/empty"
-                        android:visibility="invisible"
-                        android:layout_marginBottom="32dp"/>
+                        android:visibility="invisible" />
                 </FrameLayout>
 
                 <TextView
@@ -140,8 +138,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="24dp"
-                        tools:listitem="@layout/item_belum_piket"
-                        android:nestedScrollingEnabled="false" />
+                        android:nestedScrollingEnabled="false"
+                        tools:listitem="@layout/item_belum_piket" />
 
                     <TextView
                         android:id="@+id/tv_information_belum_piket_list"
